@@ -8,5 +8,6 @@ public class AbsoluteValueFunctionTest {
 
     @Test
     public void testApply() {
+
     }
 }
