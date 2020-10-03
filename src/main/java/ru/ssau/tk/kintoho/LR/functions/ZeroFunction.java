@@ -1,7 +1,9 @@
 package ru.ssau.tk.kintoho.LR.functions;
 
-public class ZeroFunction implements MathFunction {
-    public double apply(double x) {
-        return 0;
+public class ZeroFunction extends ConstantFunction {
+    public ZeroFunction(double constant) {
+        super(0);
     }
+
+
 }
