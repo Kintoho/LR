@@ -13,7 +13,7 @@ public class CompositeFunctionTest {
         MathFunction plus = new PlusFunction();
         CompositeFunction firstFunction = new CompositeFunction(plus, pow);
         assertEquals(firstFunction.apply(2), 49, DELTA);
-        assertEquals(firstFunction.apply(5),25 , DELTA);
+        assertEquals(firstFunction.apply(5),100 , DELTA);
         assertNotEquals(firstFunction.apply(4), 16, DELTA);
         CompositeFunction secondFunction = new CompositeFunction(identity, pow);
         assertEquals(secondFunction.apply(1),1,DELTA);
