@@ -1,9 +1,10 @@
 package ru.ssau.tk.kintoho.LR.functions;
 
-import static org.testng.Assert.*;
 import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
 public class UnitFunctionTest {
-    UnitFunction testFunction = new UnitFunction();
+    private final UnitFunction testFunction = new UnitFunction();
     @Test
     public void testGetConstant(){
         assertEquals(testFunction.apply(322), 1.0,0.001);

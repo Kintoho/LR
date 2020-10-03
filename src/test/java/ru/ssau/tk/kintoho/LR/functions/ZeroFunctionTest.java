@@ -1,11 +1,11 @@
 package ru.ssau.tk.kintoho.LR.functions;
 
-import static org.testng.Assert.*;
-
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
+
 public class ZeroFunctionTest {
-    ZeroFunction testFunction = new ZeroFunction();
+    private final ZeroFunction testFunction = new ZeroFunction();
 
     @Test
     public void testGetConstant() {
