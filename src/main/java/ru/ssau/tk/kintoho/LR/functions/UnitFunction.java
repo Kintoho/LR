@@ -1,7 +1,9 @@
 package ru.ssau.tk.kintoho.LR.functions;
 
-public class UnitFunction implements MathFunction {
-    public double apply(double x) {
-        return 1;
+public class UnitFunction extends ConstantFunction {
+    public UnitFunction(double constant) {
+        super(1);
     }
+
+
 }
