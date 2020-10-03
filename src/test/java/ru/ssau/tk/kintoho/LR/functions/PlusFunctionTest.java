@@ -9,9 +9,9 @@ public class PlusFunctionTest {
     @Test
     public void testApply() {
         IdentityFunction testFunction = new IdentityFunction();
-        assertEquals(testFunction.apply(1+5), 6.0, DELTA);
-        assertNotEquals(testFunction.apply(2.0+5), 6.0, DELTA);
-        assertEquals(testFunction.apply(123.0+5), 128.0, DELTA);
-        assertEquals(testFunction.apply(32+5), 37, DELTA);
+        assertEquals(testFunction.apply(1), 6.0, DELTA);
+        assertNotEquals(testFunction.apply(2.0), 6.0, DELTA);
+        assertEquals(testFunction.apply(123.0), 128.0, DELTA);
+        assertEquals(testFunction.apply(32), 37, DELTA);
     }
 }
