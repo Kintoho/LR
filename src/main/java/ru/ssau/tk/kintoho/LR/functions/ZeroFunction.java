@@ -5,5 +5,4 @@ public class ZeroFunction extends ConstantFunction {
         super(0);
     }
 
-
 }

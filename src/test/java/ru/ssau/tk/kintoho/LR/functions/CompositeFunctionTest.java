@@ -11,7 +11,6 @@ public class CompositeFunctionTest {
         MathFunction pow = new SqrFunction();
         MathFunction identity = new IdentityFunction();
         MathFunction plus = new PlusFunction();
-        MathFunction sqr = new SqrFunction();
         CompositeFunction firstFunction = new CompositeFunction(plus, pow);
         assertEquals(firstFunction.apply(2), 49, DELTA);
         assertEquals(firstFunction.apply(5),25 , DELTA);
