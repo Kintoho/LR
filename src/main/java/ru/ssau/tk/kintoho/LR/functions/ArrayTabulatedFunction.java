@@ -55,5 +55,61 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     public double rightBound() {
         return xValues[count-1];
     }
+
+    @Override
+    public int indexOfX(double x) {
+        for (int i = 0; i < count; i++) {
+            if (xValues[i] == x) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public int indexOfY(double y) {
+        for (int i = 0; i < count; i++) {
+            if (yValues[i] == y) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    protected int floorIndexOfX(double x) {
+        if (x < xValues[0]) {
+            return 0;
+        }
+        for (int i = 0; i + 1 < count; i++) {
+            if (xValues[i + 1] > x) {
+                return i;
+            }
+        }
+        return count;
+    }
+
+    @Override
+    protected double extrapolateLeft(double x) {
+        if (count == 1) {
+            return x;
+        }
+        return interpolate(x, xValues[0], xValues[1], yValues[0], yValues[1]);
+    }
+
+    @Override
+    protected double extrapolateRight(double x) {
+        if (count == 1) {
+            return x;
+        }
+        return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
+    }
+    @Override
+    protected double interpolate(double x, int floorIndex) {
+        if (count == 1) {
+            return x;
+        }
+        return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
+    }
 }
 
