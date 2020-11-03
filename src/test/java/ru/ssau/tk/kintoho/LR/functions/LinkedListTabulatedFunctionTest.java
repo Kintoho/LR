@@ -85,23 +85,35 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testExtrapolateLeft() {
-        assertEquals(kX().interpolate(2., 2), 4, DELTA);
-        assertEquals(sqr().interpolate(4., 2), 14., DELTA);
-        assertEquals(kX().interpolate(0., 0), 0., DELTA);
+        assertEquals(kX().extrapolateLeft(-1.), -5., DELTA);
+        assertEquals(sqr().extrapolateLeft(0.5), -0.5, DELTA);
+        assertEquals(kX().extrapolateLeft(0.), -2., DELTA);
     }
 
     @Test
     public void testExtrapolateRight() {
-
+        assertEquals(kX().extrapolateRight(8.), 32., DELTA);
+        assertEquals(sqr().extrapolateRight(6.5), 12.5, DELTA);
+        assertEquals(kX().extrapolateRight(10.), 58., DELTA);
     }
 
     @Test
     public void testInterpolate() {
-
+        assertEquals(kX().interpolate(3.5, 2), 12.5, DELTA);
+        assertEquals(sqr().interpolate(3, 2), 9, DELTA);
     }
 
     @Test
     public void testApply() {
+        assertEquals(kX().apply(-1.), -5., DELTA);
+        assertEquals(kX().apply(2.), 4., DELTA);
+        assertEquals(kX().apply(0.5), -0.5, DELTA);
+        assertEquals(kX().apply(5.), 25., DELTA);
 
+
+        assertEquals(sqr().apply(2.), 4., DELTA);
+        assertEquals(sqr().apply(0.), -2., DELTA);
+        assertEquals(sqr().apply(3.), 9., DELTA);
+        assertEquals(sqr().apply(4.), 16., DELTA);
     }
 }
