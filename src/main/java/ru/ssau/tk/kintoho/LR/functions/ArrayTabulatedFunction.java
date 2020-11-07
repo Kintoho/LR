@@ -5,15 +5,15 @@ import java.util.Arrays;
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
     private final double[] xValues;
     private final double[] yValues;
-    private int count;
+    int count;
 
-    private ArrayTabulatedFunction(double[] xValues, double[] yValues) {
+    public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
         count = xValues.length;
         this.xValues = Arrays.copyOf(xValues, count);
         this.yValues = Arrays.copyOf(yValues, count);
     }
 
-    private ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count){
+    public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count){
         this.count = count;
         xValues = new double[count];
         yValues = new double[count];
