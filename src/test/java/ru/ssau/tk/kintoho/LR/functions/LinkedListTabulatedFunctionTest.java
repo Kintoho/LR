@@ -118,4 +118,19 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(sqr().apply(3.), 9., DELTA);
         assertEquals(sqr().apply(4.), 16., DELTA);
     }
+
+    @Test
+    public void testDifficultFunction() {
+        final double[] valuesX = new double[]{1., 2., 3., 4., 5., 6., 7., 8.};
+        final double[] valuesY = new double[]{1., 4., 9., 16., 25., 36., 49., 64.};
+        TabulatedFunction one = new ArrayTabulatedFunction(valuesX, valuesY);
+        TabulatedFunction two = new LinkedListTabulatedFunction(valuesX, valuesY);
+        MathFunction sqr = new SqrFunction();
+
+        assertEquals(one.andThen(two).andThen(sqr).apply(-4.), 1936., DELTA);
+        assertEquals(one.andThen(two).andThen(sqr).apply(5.), 101761., DELTA);
+        assertEquals(one.andThen(two).andThen(sqr).apply(1.), 1., DELTA);
+        assertEquals(one.andThen(two).andThen(sqr).apply(4.5), 63252.25, DELTA);
+
+    }
 }

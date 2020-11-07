@@ -11,14 +11,16 @@ public class ArrayTabulatedFunctionTest {
 
     private final MathFunction sqr = new SqrFunction();
 
-   private ArrayTabulatedFunction kX() {
+    private ArrayTabulatedFunction kX() {
         return new ArrayTabulatedFunction(valuesX, valuesY);
 
     }
+
     private ArrayTabulatedFunction sqr() {
 
         return new ArrayTabulatedFunction(sqr, 1., 7., 7);
     }
+
     @Test
     public void testGetCount() {
         assertEquals(sqr().getCount(), 7, DELTA);
@@ -40,7 +42,7 @@ public class ArrayTabulatedFunctionTest {
     @Test
     public void testSetY() {
         ArrayTabulatedFunction testKX = new ArrayTabulatedFunction(valuesX, valuesY);
-        LinkedListTabulatedFunction testSqr = new LinkedListTabulatedFunction(sqr, 1., 7., 7);
+        ArrayTabulatedFunction testSqr = new ArrayTabulatedFunction(sqr, 1., 7., 7);
         testKX.setY(1, 14.);
         testSqr.setY(1, 14.);
         assertEquals(testKX.getY(1), 14., DELTA);
@@ -114,6 +116,19 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(sqr().apply(0.), -2., DELTA);
         assertEquals(sqr().apply(3.), 9., DELTA);
         assertEquals(sqr().apply(4.), 16., DELTA);
+    }
+
+    @Test
+    public void testDifficultFunctions() {
+        double xFrom = 2;
+        double xTo = 14;
+        int count = 36;
+        MathFunction sqr = new SqrFunction();
+        TabulatedFunction one = new ArrayTabulatedFunction(sqr, xFrom, xTo, count);
+        TabulatedFunction two = new LinkedListTabulatedFunction(sqr, xFrom, xTo, count);
+        assertEquals(one.getY(32), two.getY(32), DELTA);
+        assertEquals(one.getY(11), two.getY(11), DELTA);
+        assertEquals(one.getY(5), two.getY(5), DELTA);
     }
 }
 
