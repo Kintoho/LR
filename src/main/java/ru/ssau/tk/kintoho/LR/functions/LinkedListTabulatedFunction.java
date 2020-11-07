@@ -4,12 +4,19 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     private Node head;
     private int count;
 
+    private static class Node {
+        public Node next;
+        public Node prev;
+        public double x;
+        public double y;
+    }
+
     private void addNode(double x, double y) {
         Node joint = new Node();
         if (head == null) {
+            head = joint;
             joint.x = x;
             joint.y = y;
-            joint = head;
             joint.prev = joint;
             joint.next = joint;
         } else {
@@ -24,19 +31,19 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
-        this.count = xValues.length;
-        for (int iterator = 0; iterator < count; iterator++) {
-            this.addNode(xValues[iterator], yValues[iterator]);
+        for (int i = 0; i < xValues.length; i++) {
+            this.addNode(xValues[i], yValues[i]);
         }
     }
 
+
     LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
-        this.count = count;
         double step = (xTo - xFrom) / (count - 1);
-        double xMomentValue = xFrom;
-        for (int iterator = 0; iterator < count; iterator++) {
-            this.addNode(xMomentValue, source.apply(xMomentValue));
-            xMomentValue += step;
+        if (xFrom < xTo) {
+            for (int i = 0; i < count; i++) {
+                addNode(xFrom, source.apply(xFrom));
+                xFrom += step;
+            }
         }
     }
 
@@ -115,6 +122,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         }
         return count;
     }
+
     @Override
     public double extrapolateLeft(double x) {
         if (count == 1) {

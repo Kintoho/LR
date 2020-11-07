@@ -4,6 +4,7 @@ import static org.testng.Assert.*;
 
 import org.testng.annotations.Test;
 
+
 public class LinkedListTabulatedFunctionTest {
     private final static double DELTA = 0.001;
     private final double[] valuesX = new double[]{1., 2., 3., 4., 5., 6., 7.};
@@ -26,16 +27,17 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(kX().getCount(), 7, DELTA);
     }
 
+
     @Test
     public void testGetX() {
-        assertEquals(kX().getX(3), 3., DELTA);
-        assertEquals(sqr().getX(6), 6., DELTA);
+        assertEquals(kX().getX(3), 4., DELTA);
+        assertEquals(sqr().getX(6), 7., DELTA);
     }
 
     @Test
     public void testGetY() {
-        assertEquals(kX().getY(6), 36., DELTA);
-        assertEquals(sqr().getY(2), 4., DELTA);
+        assertEquals(kX().getY(5), 36., DELTA);
+        assertEquals(sqr().getY(1), 4., DELTA);
     }
 
     @Test
@@ -44,22 +46,22 @@ public class LinkedListTabulatedFunctionTest {
         LinkedListTabulatedFunction testSqr = new LinkedListTabulatedFunction(sqr, 1., 7., 7);
         testKX.setY(1, 14.);
         testSqr.setY(1, 14.);
-        assertEquals(testKX.getY(1), 42., DELTA);
-        assertEquals(testSqr.getY(1), 42., DELTA);
+        assertEquals(testKX.getY(1), 14., DELTA);
+        assertEquals(testSqr.getY(1), 14., DELTA);
     }
 
     @Test
     public void testIndexOfX() {
-        assertEquals(kX().indexOfX(2), 2, DELTA);
-        assertEquals(sqr().indexOfX(6), 6, DELTA);
+        assertEquals(kX().indexOfX(2), 1, DELTA);
+        assertEquals(sqr().indexOfX(6), 5, DELTA);
         assertEquals(kX().indexOfX(1234), -1, DELTA);
         assertEquals(sqr().indexOfX(245), -1, DELTA);
     }
 
     @Test
     public void testIndexOfY() {
-        assertEquals(kX().indexOfY(9), 3, DELTA);
-        assertEquals(sqr().indexOfY(9), 3, DELTA);
+        assertEquals(kX().indexOfY(9), 2, DELTA);
+        assertEquals(sqr().indexOfY(9), 2, DELTA);
         assertEquals(kX().indexOfY(1234), -1, DELTA);
         assertEquals(sqr().indexOfY(245), -1, DELTA);
     }
@@ -79,7 +81,7 @@ public class LinkedListTabulatedFunctionTest {
     @Test
     public void testFloorIndexOfX() {
         assertEquals(kX().floorIndexOfX(4.3), 3, DELTA);
-        assertEquals(sqr().floorIndexOfX(25), 4, DELTA);
+        assertEquals(sqr().floorIndexOfX(5.6), 4, DELTA);
         assertEquals(kX().floorIndexOfX(-1.), 0, DELTA);
     }
 
@@ -92,9 +94,9 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testExtrapolateRight() {
-        assertEquals(kX().extrapolateRight(8.), 32., DELTA);
-        assertEquals(sqr().extrapolateRight(6.5), 12.5, DELTA);
-        assertEquals(kX().extrapolateRight(10.), 58., DELTA);
+        assertEquals(kX().extrapolateRight(8.), 62., DELTA);
+        assertEquals(sqr().extrapolateRight(6.5), 42.5, DELTA);
+        assertEquals(kX().extrapolateRight(10.), 88., DELTA);
     }
 
     @Test
