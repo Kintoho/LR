@@ -1,6 +1,6 @@
 package ru.ssau.tk.kintoho.LR.functions;
 
-public class ConstantFunction implements MathFunction   {
+public class ConstantFunction implements MathFunction {
     private final double constant;
 
     public double getConstant() {

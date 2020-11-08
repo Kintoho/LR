@@ -2,10 +2,10 @@ package ru.ssau.tk.kintoho.LR.functions;
 
 import java.util.Arrays;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     private final double[] xValues;
     private final double[] yValues;
-    int count;
+    private int count;
 
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
         count = xValues.length;
@@ -13,7 +13,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
         this.yValues = Arrays.copyOf(yValues, count);
     }
 
-    public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count){
+    public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         this.count = count;
         xValues = new double[count];
         yValues = new double[count];
@@ -27,7 +27,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
     }
 
     @Override
-    public int getCount(){
+    public int getCount() {
         return (count);
     }
 
@@ -53,7 +53,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
 
     @Override
     public double rightBound() {
-        return xValues[count-1];
+        return xValues[count - 1];
     }
 
     @Override
@@ -104,6 +104,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
         }
         return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
     }
+
     @Override
     protected double interpolate(double x, int floorIndex) {
         if (count == 1) {
