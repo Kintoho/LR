@@ -31,12 +31,20 @@ public class ArrayTabulatedFunctionTest {
     public void testGetX() {
         assertEquals(kX().getX(3), 4., DELTA);
         assertEquals(sqr().getX(6), 7., DELTA);
+        assertThrows(ArrayIndexOutOfBoundsException.class, () ->
+                kX().getX(100));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () ->
+                sqr().getX(-100));
     }
 
     @Test
     public void testGetY() {
         assertEquals(kX().getY(5), 36., DELTA);
         assertEquals(sqr().getY(1), 4., DELTA);
+        assertThrows(ArrayIndexOutOfBoundsException.class, () ->
+                kX().getX(52));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () ->
+                sqr().getX(-11));
     }
 
     @Test
@@ -47,6 +55,8 @@ public class ArrayTabulatedFunctionTest {
         testSqr.setY(1, 14.);
         assertEquals(testKX.getY(1), 14., DELTA);
         assertEquals(testSqr.getY(1), 14., DELTA);
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> testKX.setY(12, 22));
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> testSqr.setY(-1, 3));
     }
 
     @Test
@@ -81,7 +91,12 @@ public class ArrayTabulatedFunctionTest {
     public void testFloorIndexOfX() {
         assertEquals(kX().floorIndexOfX(4.3), 3, DELTA);
         assertEquals(sqr().floorIndexOfX(5.6), 4, DELTA);
-        assertEquals(kX().floorIndexOfX(-1.), 0, DELTA);
+        assertEquals(kX().floorIndexOfX(1.), 0, DELTA);
+        assertThrows(IllegalArgumentException.class, () ->
+                kX().floorIndexOfX(-6));
+
+        assertThrows(IllegalArgumentException.class, () ->
+                sqr().floorIndexOfX(-111));
     }
 
     @Test
