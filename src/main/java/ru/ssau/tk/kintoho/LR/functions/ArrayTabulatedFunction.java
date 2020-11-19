@@ -1,6 +1,7 @@
 package ru.ssau.tk.kintoho.LR.functions;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     private final double[] xValues;
@@ -114,6 +115,11 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     protected double interpolate(double x, int floorIndex) {
 
         return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
+    }
+
+    @Override
+    public Iterator<Point> iterator() {
+        throw new UnsupportedOperationException();
     }
 }
 

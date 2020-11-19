@@ -1,5 +1,7 @@
 package ru.ssau.tk.kintoho.LR.functions;
 
+import java.util.Iterator;
+
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     private Node head;
     private int count;
@@ -154,7 +156,10 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         return interpolate(x, getNode(floorIndex).x, getNode(floorIndex + 1).x, getNode(floorIndex).y, getNode(floorIndex + 1).y);
     }
 
-
+    @Override
+    public Iterator<Point> iterator() {
+        throw new UnsupportedOperationException();
+    }
 }
 
 
