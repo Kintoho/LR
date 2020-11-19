@@ -6,6 +6,10 @@ import static org.testng.Assert.assertEquals;
 
 import static org.testng.Assert.assertThrows;
 
+import java.util.NoSuchElementException;
+
+import java.util.Iterator;
+
 public class LinkedListTabulatedFunctionTest {
     private final static double DELTA = 0.001;
     private final double[] valuesX = new double[]{1., 2., 3., 4., 5., 6., 7.};
@@ -150,4 +154,40 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(one.andThen(two).andThen(sqr).apply(4.5), 63252.25, DELTA);
 
     }
+
+    @Test
+    public void testIterator() {
+        LinkedListTabulatedFunction testKX = new LinkedListTabulatedFunction(valuesX, valuesY);
+        final MathFunction SqrFunc = new SqrFunction();
+        LinkedListTabulatedFunction testSqr = new LinkedListTabulatedFunction(SqrFunc, 1, 7, 7);
+        Iterator<Point> iterator = testKX.iterator();
+        int i = 0;
+        while (iterator.hasNext()) {
+            Point point = iterator.next();
+            assertEquals(point.x, testKX.getX(i++));
+        }
+        assertEquals(i, 7, DELTA);
+        assertThrows(NoSuchElementException.class, iterator::next);
+        int j = 0;
+
+        for (Point point : testKX) {
+            assertEquals(point.x, testKX.getX(j++));
+        }
+        assertEquals(j, 7, DELTA);
+
+        Iterator<Point> iterator2 = testSqr.iterator();
+        i = 0;
+        while (iterator2.hasNext()) {
+            Point point = iterator2.next();
+            assertEquals(point.x, testSqr.getX(i++));
+        }
+        assertEquals(i, 7, DELTA);
+        assertThrows(NoSuchElementException.class, iterator::next);
+        j = 0;
+        for (Point point : testSqr) {
+            assertEquals(point.x, testSqr.getX(j++));
+        }
+        assertEquals(j, 7, DELTA);
+    }
+
 }

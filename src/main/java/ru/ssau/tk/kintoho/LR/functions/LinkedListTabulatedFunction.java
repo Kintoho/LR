@@ -2,7 +2,9 @@ package ru.ssau.tk.kintoho.LR.functions;
 
 import java.util.Iterator;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
+import java.util.NoSuchElementException;
+
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Iterable<Point>{
     private Node head;
     private int count;
 
@@ -158,7 +160,25 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public Iterator<Point> iterator() {
-        throw new UnsupportedOperationException();
+        return new Iterator<>() {    //походу надо новую версию джавы
+            private Node node = head;
+
+            public boolean hasNext() {
+                return (node != null);
+            }
+
+            @Override
+            public Point next() {
+                if (hasNext()) {
+                    Point point = new Point(node.x, node.y);
+                    node = (node != head.prev) ? node.next : null;
+                    return point;
+                } else {
+                    throw new NoSuchElementException();
+                }
+            }
+
+        };
     }
 }
 

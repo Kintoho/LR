@@ -1,6 +1,9 @@
 package ru.ssau.tk.kintoho.LR.functions;
 
-public class MockTabulatedFunction extends AbstractTabulatedFunction {
+import java.util.Iterator;
+
+
+public class MockTabulatedFunction extends AbstractTabulatedFunction implements Iterable<Point> {
     final double x0 = 3.;
     final double x1 = 6.;
     final double y0 = 4.;
@@ -101,5 +104,10 @@ public class MockTabulatedFunction extends AbstractTabulatedFunction {
     public double apply(double x) {
         return super.apply(x);
 
+    }
+
+    @Override
+    public Iterator<Point> iterator() {
+        throw new UnsupportedOperationException();
     }
 }
