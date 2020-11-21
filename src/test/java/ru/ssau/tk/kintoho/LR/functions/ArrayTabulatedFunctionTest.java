@@ -2,8 +2,6 @@ package ru.ssau.tk.kintoho.LR.functions;
 
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
-
 public class ArrayTabulatedFunctionTest {
     private final static double DELTA = 0.001;
     private final double[] valuesX = new double[]{1., 2., 3., 4., 5., 6., 7.};

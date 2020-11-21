@@ -1,4 +1,6 @@
 package ru.ssau.tk.kintoho.LR.functions;
+import ru.ssau.tk.kintoho.LR.exceptions.DifferentLengthOfArraysException;
+import ru.ssau.tk.kintoho.LR.exceptions.ArrayIsNotSortedException;
 
 abstract class AbstractTabulatedFunction implements TabulatedFunction {
     protected abstract int floorIndexOfX(double x);
@@ -13,7 +15,6 @@ abstract class AbstractTabulatedFunction implements TabulatedFunction {
         return (leftY + (x - leftX) * (rightY - leftY) / (rightX - leftX));
     }
 
-
     public double apply(double x) {
         if (x < leftBound()) {
             return (extrapolateLeft(x));
@@ -22,5 +23,24 @@ abstract class AbstractTabulatedFunction implements TabulatedFunction {
         } else if (x > leftBound() && x < rightBound() && indexOfX(x) != -1) {
             return getY(indexOfX(x));
         } else return (interpolate(x, floorIndexOfX(x)));
+    }
+
+    protected static void checkLengthIsTheSame(double[] xValues, double[] yValues){
+        int xV, yV;
+        xV = xValues.length;
+        yV = yValues.length;
+        if (xV != yV) {
+            throw new DifferentLengthOfArraysException("Lengths of xValues and yValues are different");
+        }
+    }
+
+    protected static void checkSorted(double[] xValues){
+        int xV;
+        xV = xValues.length;
+        for (int i = 0; (i + 1) < xV; i++) {
+            if (xValues[i] > xValues[i + 1]) {
+                throw new ArrayIsNotSortedException("Array is not sorted");
+            }
+        }
     }
 }
