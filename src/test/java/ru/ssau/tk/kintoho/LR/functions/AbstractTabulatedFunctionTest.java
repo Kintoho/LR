@@ -35,7 +35,7 @@ public class AbstractTabulatedFunctionTest {
     }
 
     @Test
-    public void testCheckSorted(){
+    public void testCheckSorted() {
         assertThrows(ArrayIsNotSortedException.class, () ->
                 AbstractTabulatedFunction.checkSorted(xArrWrong));
     }

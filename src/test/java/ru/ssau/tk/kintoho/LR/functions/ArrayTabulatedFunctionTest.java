@@ -2,8 +2,10 @@ package ru.ssau.tk.kintoho.LR.functions;
 
 import org.testng.annotations.Test;
 import ru.ssau.tk.kintoho.LR.exceptions.InterpolationException;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertThrows;
 
@@ -152,7 +154,7 @@ public class ArrayTabulatedFunctionTest {
     }
 
     @Test
-    public void testIterator(){
+    public void testIterator() {
         AbstractTabulatedFunction functionFirst = new ArrayTabulatedFunction(valuesX, valuesY);
         Iterator<Point> iterator = functionFirst.iterator();
         int i = 0;

@@ -129,10 +129,12 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     public Iterator<Point> iterator() {
         return new Iterator<>() {
             int i = 0;
+
             @Override
             public boolean hasNext() {
                 return i < count;
             }
+
             @Override
             public Point next() {
                 if (!hasNext()) {
