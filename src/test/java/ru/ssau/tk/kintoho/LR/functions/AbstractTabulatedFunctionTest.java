@@ -1,13 +1,10 @@
 package ru.ssau.tk.kintoho.LR.functions;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.ssau.tk.kintoho.LR.exceptions.ArrayIsNotSortedException;
 import ru.ssau.tk.kintoho.LR.exceptions.DifferentLengthOfArraysException;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotEquals;
-import static org.testng.Assert.assertThrows;
+import static org.testng.Assert.*;
 
 public class AbstractTabulatedFunctionTest {
     private final static double DELTA = 0.001;

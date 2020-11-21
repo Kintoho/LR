@@ -1,12 +1,11 @@
 package ru.ssau.tk.kintoho.LR.functions;
 
 import org.testng.annotations.Test;
-
-import static org.testng.Assert.assertEquals;
-
-import static org.testng.Assert.assertThrows;
-
 import ru.ssau.tk.kintoho.LR.exceptions.InterpolationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertThrows;
 
 public class ArrayTabulatedFunctionTest {
     private final static double DELTA = 0.001;
@@ -151,5 +150,37 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(one.getY(11), two.getY(11), DELTA);
         assertEquals(one.getY(5), two.getY(5), DELTA);
     }
-}
 
+    @Test
+    public void testIterator(){
+        AbstractTabulatedFunction functionFirst = new ArrayTabulatedFunction(valuesX, valuesY);
+        Iterator<Point> iterator = functionFirst.iterator();
+        int i = 0;
+        while (iterator.hasNext()) {
+            Point point = iterator.next();
+            assertEquals(point.x, functionFirst.getX(i++));
+        }
+        assertThrows(NoSuchElementException.class, iterator::next);
+
+        int j = 0;
+        for (Point point : functionFirst) {
+            assertEquals(point.x, functionFirst.getX(j++));
+        }
+        assertThrows(NoSuchElementException.class, iterator::next);
+
+        SqrFunction sqr = new SqrFunction();
+        ArrayTabulatedFunction functionSecond = new ArrayTabulatedFunction(sqr, 1, 5, 5);
+        Iterator<Point> secondIterator = functionSecond.iterator();
+        i = 0;
+        while (iterator.hasNext()) {
+            Point point = secondIterator.next();
+            assertEquals(point.x, functionSecond.getX(i++));
+        }
+        assertThrows(NoSuchElementException.class, iterator::next);
+        j = 0;
+        for (Point point : functionSecond) {
+            assertEquals(point.x, functionSecond.getX(j++));
+        }
+        assertThrows(NoSuchElementException.class, iterator::next);
+    }
+}
