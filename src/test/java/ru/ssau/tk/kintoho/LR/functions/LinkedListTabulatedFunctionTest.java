@@ -1,6 +1,7 @@
 package ru.ssau.tk.kintoho.LR.functions;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk.kintoho.LR.exceptions.InterpolationException;
 
 import static org.testng.Assert.assertEquals;
 
@@ -124,6 +125,8 @@ public class LinkedListTabulatedFunctionTest {
     public void testInterpolate() {
         assertEquals(kX().interpolate(3.5, 2), 12.5, DELTA);
         assertEquals(sqr().interpolate(3, 2), 9, DELTA);
+        assertThrows(InterpolationException.class, () -> kX().interpolate(123, 6));
+        assertThrows(InterpolationException.class, () -> sqr().interpolate(345, 5));
     }
 
     @Test

@@ -4,7 +4,9 @@ import java.util.Iterator;
 
 import java.util.NoSuchElementException;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Iterable<Point>{
+import ru.ssau.tk.kintoho.LR.exceptions.InterpolationException;
+
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Iterable<Point> {
     private Node head;
     private int count;
 
@@ -38,6 +40,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         if (xValues.length < 2 || yValues.length < 2) {
             throw new IllegalArgumentException("List size less than 2");
         }
+        checkLengthIsTheSame(xValues, yValues);
+        checkSorted(xValues);
         for (int i = 0; i < xValues.length; i++) {
             this.addNode(xValues[i], yValues[i]);
         }
@@ -154,13 +158,15 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public double interpolate(double x, int floorIndex) {
-
+        if (x < head.x || x > head.prev.x) {
+            throw new InterpolationException("X is out of bounds of interpolation");
+        }
         return interpolate(x, getNode(floorIndex).x, getNode(floorIndex + 1).x, getNode(floorIndex).y, getNode(floorIndex + 1).y);
     }
 
     @Override
     public Iterator<Point> iterator() {
-        return new Iterator<>() {    //походу надо новую версию джавы
+        return new Iterator<>() {
             private Node node = head;
 
             public boolean hasNext() {

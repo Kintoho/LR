@@ -7,6 +7,7 @@ import ru.ssau.tk.kintoho.LR.exceptions.DifferentLengthOfArraysException;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotEquals;
+import static org.testng.Assert.assertThrows;
 
 public class AbstractTabulatedFunctionTest {
     private final static double DELTA = 0.001;
@@ -32,13 +33,13 @@ public class AbstractTabulatedFunctionTest {
 
     @Test
     public void testCheckLengthIsTheSame() {
-        Assert.assertThrows(DifferentLengthOfArraysException.class, () ->
+        assertThrows(DifferentLengthOfArraysException.class, () ->
                 AbstractTabulatedFunction.checkLengthIsTheSame(xArr, yArr));
     }
 
     @Test
     public void testCheckSorted(){
-        Assert.assertThrows(ArrayIsNotSortedException.class, () ->
+        assertThrows(ArrayIsNotSortedException.class, () ->
                 AbstractTabulatedFunction.checkSorted(xArrWrong));
     }
 }

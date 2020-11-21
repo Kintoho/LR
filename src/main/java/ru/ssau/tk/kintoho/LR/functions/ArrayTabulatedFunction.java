@@ -3,6 +3,8 @@ package ru.ssau.tk.kintoho.LR.functions;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import ru.ssau.tk.kintoho.LR.exceptions.InterpolationException;
+
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     private final double[] xValues;
     private final double[] yValues;
@@ -12,6 +14,8 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
         if (xValues.length < 2 & yValues.length < 2) {
             throw new IllegalArgumentException("List size less than 2");
         }
+        checkLengthIsTheSame(xValues, yValues);
+        checkSorted(xValues);
         count = xValues.length;
         this.xValues = Arrays.copyOf(xValues, count);
         this.yValues = Arrays.copyOf(yValues, count);
@@ -113,6 +117,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     protected double interpolate(double x, int floorIndex) {
+        if (x < xValues[floorIndex] || x > xValues[floorIndex + 1]) {
+            throw new InterpolationException("X is not within the interpolation interval");
+        }
 
         return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
     }

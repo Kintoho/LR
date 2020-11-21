@@ -2,6 +2,12 @@ package ru.ssau.tk.kintoho.LR.functions;
 
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
+
+import static org.testng.Assert.assertThrows;
+
+import ru.ssau.tk.kintoho.LR.exceptions.InterpolationException;
+
 public class ArrayTabulatedFunctionTest {
     private final static double DELTA = 0.001;
     private final double[] valuesX = new double[]{1., 2., 3., 4., 5., 6., 7.};
@@ -115,6 +121,8 @@ public class ArrayTabulatedFunctionTest {
     public void testInterpolate() {
         assertEquals(kX().interpolate(3.5, 2), 12.5, DELTA);
         assertEquals(sqr().interpolate(3, 2), 9, DELTA);
+        assertThrows(InterpolationException.class, () -> kX().interpolate(4, 1));
+        assertThrows(InterpolationException.class, () -> sqr().interpolate(7, 3));
     }
 
     @Test
