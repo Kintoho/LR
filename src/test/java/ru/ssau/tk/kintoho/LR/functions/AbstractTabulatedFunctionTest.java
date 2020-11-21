@@ -1,12 +1,20 @@
 package ru.ssau.tk.kintoho.LR.functions;
 
-import static org.testng.Assert.*;
-
+import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.ssau.tk.kintoho.LR.exceptions.ArrayIsNotSortedException;
+import ru.ssau.tk.kintoho.LR.exceptions.DifferentLengthOfArraysException;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotEquals;
 
 public class AbstractTabulatedFunctionTest {
     private final static double DELTA = 0.001;
     public MockTabulatedFunction mock = new MockTabulatedFunction();
+    private final double[] xArr = new double[]{1, 2, 3};
+    private final double[] yArr = new double[]{4, 5, 6, 7};
+    private final double[] xArrWrong = new double[]{1, 4, 3};
+
 
     @Test
     public void testInterpolate() {
@@ -20,5 +28,17 @@ public class AbstractTabulatedFunctionTest {
         assertEquals(mock.apply(2.), 2.666666666666667, DELTA);
         assertEquals(mock.apply(10.), 13.333333333333334, DELTA);
         assertNotEquals(mock.apply(6.), 10., DELTA);
+    }
+
+    @Test
+    public void testCheckLengthIsTheSame() {
+        Assert.assertThrows(DifferentLengthOfArraysException.class, () ->
+                AbstractTabulatedFunction.checkLengthIsTheSame(xArr, yArr));
+    }
+
+    @Test
+    public void testCheckSorted(){
+        Assert.assertThrows(ArrayIsNotSortedException.class, () ->
+                AbstractTabulatedFunction.checkSorted(xArrWrong));
     }
 }
