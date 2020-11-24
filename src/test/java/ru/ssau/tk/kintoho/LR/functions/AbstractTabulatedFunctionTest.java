@@ -10,9 +10,11 @@ public class AbstractTabulatedFunctionTest {
     private final static double DELTA = 0.001;
     public MockTabulatedFunction mock = new MockTabulatedFunction();
     private final double[] xArr = new double[]{1, 2, 3};
-    private final double[] yArr = new double[]{4, 5, 6, 7};
+    private final double[] xArrSame = new double[]{1, 1, 2, 3};
+    private final double[] yArr = new double[]{4, 5, 6, 12};
+    private final double[] yArrPass = new double[]{1, 2, 3};
     private final double[] xArrWrong = new double[]{1, 4, 3};
-
+    private final double[] xArrPass = new double[]{1, 3, 4};
 
     @Test
     public void testInterpolate() {
@@ -32,11 +34,15 @@ public class AbstractTabulatedFunctionTest {
     public void testCheckLengthIsTheSame() {
         assertThrows(DifferentLengthOfArraysException.class, () ->
                 AbstractTabulatedFunction.checkLengthIsTheSame(xArr, yArr));
+        AbstractTabulatedFunction.checkLengthIsTheSame(xArr, yArrPass);
     }
 
     @Test
     public void testCheckSorted() {
         assertThrows(ArrayIsNotSortedException.class, () ->
                 AbstractTabulatedFunction.checkSorted(xArrWrong));
+        AbstractTabulatedFunction.checkSorted(xArrPass);
+        assertThrows(ArrayIsNotSortedException.class, () ->
+                AbstractTabulatedFunction.checkSorted(xArrSame));
     }
 }

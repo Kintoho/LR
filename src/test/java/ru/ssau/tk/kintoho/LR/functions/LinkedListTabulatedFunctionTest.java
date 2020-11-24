@@ -159,6 +159,13 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
+    public void testException() {
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(new double[]{0}, new double[]{1}));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(sqr, 6, 3, 7));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(sqr, 5, 7, 1));
+    }
+
+    @Test
     public void testIterator() {
         LinkedListTabulatedFunction testKX = new LinkedListTabulatedFunction(valuesX, valuesY);
         final MathFunction SqrFunc = new SqrFunction();
