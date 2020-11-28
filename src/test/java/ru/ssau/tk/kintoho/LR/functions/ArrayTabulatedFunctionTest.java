@@ -169,12 +169,14 @@ public class ArrayTabulatedFunctionTest {
             Point point = iterator.next();
             assertEquals(point.x, functionFirst.getX(i++));
         }
+        assertEquals(i, 5, 0.001);
         assertThrows(NoSuchElementException.class, iterator::next);
 
         int j = 0;
         for (Point point : functionFirst) {
             assertEquals(point.x, functionFirst.getX(j++));
         }
+        assertEquals(j, 5, 0.001);
         assertThrows(NoSuchElementException.class, iterator::next);
 
         SqrFunction sqr = new SqrFunction();
@@ -185,11 +187,14 @@ public class ArrayTabulatedFunctionTest {
             Point point = secondIterator.next();
             assertEquals(point.x, functionSecond.getX(i++));
         }
+        assertEquals(i, 5, 0.001);
         assertThrows(NoSuchElementException.class, iterator::next);
+
         j = 0;
         for (Point point : functionSecond) {
             assertEquals(point.x, functionSecond.getX(j++));
         }
+        assertEquals(j, 5, 0.001);
         assertThrows(NoSuchElementException.class, iterator::next);
     }
 }
