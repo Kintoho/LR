@@ -36,6 +36,7 @@ public class TabulatedFunctionOperationServiceTest {
 
     @Test
     public void testSetFactory() {
+
     }
 
 
