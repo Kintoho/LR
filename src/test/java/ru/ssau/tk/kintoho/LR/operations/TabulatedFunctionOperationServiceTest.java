@@ -82,7 +82,6 @@ public class TabulatedFunctionOperationServiceTest {
         }
 
 
-
         assertTrue(arraySum instanceof ArrayTabulatedFunction);
         assertTrue(listSum instanceof LinkedListTabulatedFunction);
         assertTrue(arrayAndListSum instanceof ArrayTabulatedFunction);
@@ -113,7 +112,6 @@ public class TabulatedFunctionOperationServiceTest {
             assertEquals(point.x, xValues[k]);
             assertEquals(point.y, yValues[k] - yValuesAnother[k++]);
         }
-
 
 
         assertTrue(arraySub instanceof ArrayTabulatedFunction);
@@ -148,7 +146,6 @@ public class TabulatedFunctionOperationServiceTest {
         }
 
 
-
         assertTrue(arrayMultiply instanceof ArrayTabulatedFunction);
         assertTrue(listMultiply instanceof LinkedListTabulatedFunction);
         assertTrue(arrayAndListMultiply instanceof ArrayTabulatedFunction);
@@ -179,7 +176,6 @@ public class TabulatedFunctionOperationServiceTest {
             assertEquals(point.x, xValues[k]);
             assertEquals(point.y, yValues[k] / yValuesAnother[k++]);
         }
-
 
 
         assertTrue(arrayDivide instanceof ArrayTabulatedFunction);
