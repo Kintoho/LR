@@ -38,8 +38,8 @@ public class TabulatedFunctionOperationService {
         double apply(double u, double v);
     }
 
-    private TabulatedFunction doOperation(TabulatedFunction a, TabulatedFunction b, BiOperation operation){
-        if (a.getCount()!=b.getCount()){
+    private TabulatedFunction doOperation(TabulatedFunction a, TabulatedFunction b, BiOperation operation) {
+        if (a.getCount() != b.getCount()) {
             throw new InconsistentFunctionsException();
         }
         Point[] aPoints = asPoints(a);
@@ -56,19 +56,19 @@ public class TabulatedFunctionOperationService {
         return factory.create(xValues, yValues);
     }
 
-    public TabulatedFunction sum (TabulatedFunction a, TabulatedFunction b) {
+    public TabulatedFunction sum(TabulatedFunction a, TabulatedFunction b) {
         return doOperation(a, b, ((u, v) -> u + v));
     }
 
-    public TabulatedFunction subtraction (TabulatedFunction a, TabulatedFunction b) {
+    public TabulatedFunction subtraction(TabulatedFunction a, TabulatedFunction b) {
         return doOperation(a, b, ((u, v) -> u - v));
     }
 
-    public TabulatedFunction multiplication (TabulatedFunction a, TabulatedFunction b) {
+    public TabulatedFunction multiplication(TabulatedFunction a, TabulatedFunction b) {
         return doOperation(a, b, ((u, v) -> u * v));
     }
 
-    public TabulatedFunction division (TabulatedFunction a, TabulatedFunction b) {
+    public TabulatedFunction division(TabulatedFunction a, TabulatedFunction b) {
         return doOperation(a, b, ((u, v) -> u / v));
     }
 
