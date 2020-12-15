@@ -45,4 +45,15 @@ public class AbstractTabulatedFunctionTest {
         assertThrows(ArrayIsNotSortedException.class, () ->
                 AbstractTabulatedFunction.checkSorted(xArrSame));
     }
+    @Test
+    public void testToString() {
+        double[] xValues = new double[]{1., 2., 3.};
+        double[] yValues = new double[]{4., 5., 6.};
+        LinkedListTabulatedFunction linkedFunction = new LinkedListTabulatedFunction(xValues, yValues);
+        ArrayTabulatedFunction arrayFunction = new ArrayTabulatedFunction(xValues, yValues);
+        String stringList = "LinkedListTabulatedFunction Size = 3\n[1.0; 4.0]\n[2.0; 5.0]\n[3.0; 6.0]";
+        String stringArray = "ArrayTabulatedFunction Size = 3\n[1.0; 4.0]\n[2.0; 5.0]\n[3.0; 6.0]";
+        assertEquals(linkedFunction.toString(), stringList);
+        assertEquals(arrayFunction.toString(), stringArray);
+    }
 }
