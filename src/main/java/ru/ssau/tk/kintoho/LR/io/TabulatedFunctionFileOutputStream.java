@@ -2,6 +2,7 @@ package ru.ssau.tk.kintoho.LR.io;
 import java.io.*;
 import ru.ssau.tk.kintoho.LR.functions.*;
 
+
 public class TabulatedFunctionFileOutputStream {
     public static void main(String[] args) {
         ArrayTabulatedFunction functionArray = new ArrayTabulatedFunction(new double[]{1., 2., 3., 4,}, new double[]{5., 6., 7., 8.});
