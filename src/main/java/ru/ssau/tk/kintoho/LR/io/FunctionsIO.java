@@ -1,9 +1,10 @@
 package ru.ssau.tk.kintoho.LR.io;
 
-import java.io.*;
-
-import ru.ssau.tk.kintoho.LR.functions.*;
+import ru.ssau.tk.kintoho.LR.functions.Point;
+import ru.ssau.tk.kintoho.LR.functions.TabulatedFunction;
 import ru.ssau.tk.kintoho.LR.functions.factory.TabulatedFunctionFactory;
+
+import java.io.*;
 
 public final class FunctionsIO {
     private FunctionsIO() {

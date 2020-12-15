@@ -19,8 +19,8 @@ public class TabulatedFunctionOperationServiceTest {
     private final static double[] xValues = new double[]{1., 2., 3.};
     private final static double[] yValues = new double[]{4., 5., 6.};
     private final static double[] yValuesAnother = new double[]{7., 8., 9.};
-    final TabulatedFunction testFirstFunction = new ArrayTabulatedFunction(xValues, yValues);
-    final TabulatedFunction testSecondFunction = new LinkedListTabulatedFunction(xValues, yValuesAnother);
+    private final static TabulatedFunction testFirstFunction = new ArrayTabulatedFunction(xValues, yValues);
+    private final static TabulatedFunction testSecondFunction = new LinkedListTabulatedFunction(xValues, yValuesAnother);
 
     @Test
     public void testAsPoints() {
