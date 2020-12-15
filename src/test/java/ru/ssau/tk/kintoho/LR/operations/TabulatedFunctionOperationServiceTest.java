@@ -7,17 +7,20 @@ import ru.ssau.tk.kintoho.LR.functions.Point;
 import ru.ssau.tk.kintoho.LR.functions.TabulatedFunction;
 import ru.ssau.tk.kintoho.LR.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.kintoho.LR.functions.factory.LinkedListTabulatedFunctionFactory;
+import ru.ssau.tk.kintoho.LR.exceptions.InconsistentFunctionsException;
+
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertThrows;
 
 public class TabulatedFunctionOperationServiceTest {
     private final static double DELTA = 0.001;
     private final static double[] xValues = new double[]{1., 2., 3.};
     private final static double[] yValues = new double[]{4., 5., 6.};
     private final static double[] yValuesAnother = new double[]{7., 8., 9.};
-    TabulatedFunction testFirstFunction = new ArrayTabulatedFunction(xValues, yValues);
-    TabulatedFunction testSecondFunction = new LinkedListTabulatedFunction(xValues, yValuesAnother);
+    final TabulatedFunction testFirstFunction = new ArrayTabulatedFunction(xValues, yValues);
+    final TabulatedFunction testSecondFunction = new LinkedListTabulatedFunction(xValues, yValuesAnother);
 
     @Test
     public void testAsPoints() {
@@ -81,6 +84,11 @@ public class TabulatedFunctionOperationServiceTest {
             assertEquals(point.y, yValues[k] + yValuesAnother[k++]);
         }
 
+        assertThrows(InconsistentFunctionsException.class, () ->
+                service1.sum(new LinkedListTabulatedFunctionFactory().create(new double[]{-2., 1.}, new double[]{-5., -2.}), b));
+
+        assertThrows(InconsistentFunctionsException.class, () ->
+                service1.sum(new ArrayTabulatedFunctionFactory().create(new double[]{1., 2., 3., 4., 5., 6.}, new double[]{4., 8., 15., 16., 23., 42.}), b));
 
         assertTrue(arraySum instanceof ArrayTabulatedFunction);
         assertTrue(listSum instanceof LinkedListTabulatedFunction);
@@ -113,7 +121,11 @@ public class TabulatedFunctionOperationServiceTest {
             assertEquals(point.y, yValues[k] - yValuesAnother[k++]);
         }
 
+        assertThrows(InconsistentFunctionsException.class, () ->
+                service2.subtraction(new LinkedListTabulatedFunctionFactory().create(new double[]{-2., 1.}, new double[]{-5., -2.}), b));
 
+        assertThrows(InconsistentFunctionsException.class, () ->
+                service2.subtraction(new ArrayTabulatedFunctionFactory().create(new double[]{1., 2., 3., 4., 5., 6.}, new double[]{4., 8., 15., 16., 23., 42.}), b));
         assertTrue(arraySub instanceof ArrayTabulatedFunction);
         assertTrue(listSub instanceof LinkedListTabulatedFunction);
         assertTrue(arrayAndListSub instanceof ArrayTabulatedFunction);
@@ -144,7 +156,11 @@ public class TabulatedFunctionOperationServiceTest {
             assertEquals(point.x, xValues[k]);
             assertEquals(point.y, yValues[k] * yValuesAnother[k++]);
         }
+        assertThrows(InconsistentFunctionsException.class, () ->
+                service1.multiplication(new LinkedListTabulatedFunctionFactory().create(new double[]{-2., 1.}, new double[]{-5., -2.}), b));
 
+        assertThrows(InconsistentFunctionsException.class, () ->
+                service1.multiplication(new ArrayTabulatedFunctionFactory().create(new double[]{1., 2., 3., 4., 5., 6.}, new double[]{4., 8., 15., 16., 23., 42.}), b));
 
         assertTrue(arrayMultiply instanceof ArrayTabulatedFunction);
         assertTrue(listMultiply instanceof LinkedListTabulatedFunction);
@@ -176,7 +192,11 @@ public class TabulatedFunctionOperationServiceTest {
             assertEquals(point.x, xValues[k]);
             assertEquals(point.y, yValues[k] / yValuesAnother[k++]);
         }
+        assertThrows(InconsistentFunctionsException.class, () ->
+                service2.division(new LinkedListTabulatedFunctionFactory().create(new double[]{-2., 1.}, new double[]{-5., -2.}), b));
 
+        assertThrows(InconsistentFunctionsException.class, () ->
+                service2.division(new ArrayTabulatedFunctionFactory().create(new double[]{1., 2., 3., 4., 5., 6.}, new double[]{4., 8., 15., 16., 23., 42.}), b));
 
         assertTrue(arrayDivide instanceof ArrayTabulatedFunction);
         assertTrue(listDivide instanceof LinkedListTabulatedFunction);

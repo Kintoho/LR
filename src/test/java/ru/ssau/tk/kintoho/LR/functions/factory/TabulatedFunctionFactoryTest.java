@@ -1,7 +1,7 @@
 package ru.ssau.tk.kintoho.LR.functions.factory;
 
 import org.testng.annotations.Test;
-import ru.ssau.tk.kintoho.LR.functions.TabulatedFunction;
+import ru.ssau.tk.kintoho.LR.functions.*;
 
 import static org.testng.Assert.assertTrue;
 
@@ -15,7 +15,7 @@ public class TabulatedFunctionFactoryTest {
         LinkedListTabulatedFunctionFactory testFirstFunction = new LinkedListTabulatedFunctionFactory();
         ArrayTabulatedFunctionFactory testSecondFunction = new ArrayTabulatedFunctionFactory();
 
-        assertTrue(testFirstFunction.create(xValues, yValues) instanceof TabulatedFunction);
-        assertTrue(testSecondFunction.create(xValues, yValues) instanceof TabulatedFunction);
+        assertTrue(testFirstFunction.create(xValues, yValues) instanceof LinkedListTabulatedFunction);
+        assertTrue(testSecondFunction.create(xValues, yValues) instanceof ArrayTabulatedFunction);
     }
 }
