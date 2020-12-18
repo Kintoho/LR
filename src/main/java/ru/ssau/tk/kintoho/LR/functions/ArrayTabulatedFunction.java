@@ -2,11 +2,15 @@ package ru.ssau.tk.kintoho.LR.functions;
 
 import ru.ssau.tk.kintoho.LR.exceptions.InterpolationException;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -3461243627333514321L;
     private final double[] xValues;
     private final double[] yValues;
     private final int count;

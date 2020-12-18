@@ -1,16 +1,24 @@
 package ru.ssau.tk.kintoho.LR.functions;
 
+
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Iterator;
+
 
 import java.util.NoSuchElementException;
 
 import ru.ssau.tk.kintoho.LR.exceptions.InterpolationException;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Iterable<Point> {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Iterable<Point>, Serializable {
+    @Serial
+    private static final long serialVersionUID = -1485518412020327747L;
     private Node head;
     private int count;
 
-    private static class Node {
+    private static class Node implements Serializable {
+        @Serial
+        private static final long serialVersionUID = 7769496733099288029L;
         public Node next;
         public Node prev;
         public double x;
@@ -75,6 +83,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         }
         return currentNode;
     }
+
 
     @Override
     public int getCount() {
@@ -186,6 +195,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
         };
     }
+
+
 }
 
 
