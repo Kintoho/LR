@@ -33,7 +33,7 @@ public final class FunctionsIO {
         dataOutputStream.flush();
     }
 
-    public static TabulatedFunction readTabulatedFunction(BufferedInputStream inputStream, TabulatedFunctionFactory factory) throws IOException{
+    public static TabulatedFunction readTabulatedFunction(BufferedInputStream inputStream, TabulatedFunctionFactory factory) throws IOException {
         DataInputStream dataInputStream = new DataInputStream(inputStream);
         int count = dataInputStream.readInt();
         double[] xValues = new double[count];
@@ -45,7 +45,7 @@ public final class FunctionsIO {
         return factory.create(xValues, yValues);
     }
 
-    public static TabulatedFunction readTabulatedFunction(BufferedReader reader, TabulatedFunctionFactory factory) throws IOException{
+    public static TabulatedFunction readTabulatedFunction(BufferedReader reader, TabulatedFunctionFactory factory) throws IOException {
         int count = Integer.parseInt(reader.readLine());
 
         double[] xValues = new double[count];

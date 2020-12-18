@@ -10,7 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class TabulatedFunctionFileReader {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         File file = new File("input/function.txt");
         try (BufferedReader inputArray = new BufferedReader(new FileReader(file));
              BufferedReader inputList = new BufferedReader(new FileReader(file))) {
