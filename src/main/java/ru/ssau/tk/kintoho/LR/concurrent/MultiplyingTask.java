@@ -14,10 +14,10 @@ public class MultiplyingTask implements Runnable{
         for (int i = 0; i < tabulatedFunction.getCount(); i++) {
             double x = tabulatedFunction.getX(i);
             double y = tabulatedFunction.getY(i);
-            System.out.println(Thread.currentThread().getName() + "i = " + i + "x = " + x +  "old y = " + y);
+            System.out.println(Thread.currentThread().getName() + " i = " + i + " x = " + x +  " old y = " + y);
             tabulatedFunction.setY(i, y*10);
             y = tabulatedFunction.getY(i);
-            System.out.println(Thread.currentThread().getName() + "i = " + i + "x = " + x +  "new y = " + y);
+            System.out.println(Thread.currentThread().getName() + " i = " + i + " x = " + x +  " new y = " + y);
         }
 
     }
