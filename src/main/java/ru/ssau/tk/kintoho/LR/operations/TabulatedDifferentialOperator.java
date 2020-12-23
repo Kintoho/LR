@@ -1,7 +1,10 @@
 package ru.ssau.tk.kintoho.LR.operations;
 
-import ru.ssau.tk.kintoho.LR.functions.*;
-import ru.ssau.tk.kintoho.LR.functions.factory.*;
+import ru.ssau.tk.kintoho.LR.concurrent.SynchronizedTabulatedFunction;
+import ru.ssau.tk.kintoho.LR.functions.Point;
+import ru.ssau.tk.kintoho.LR.functions.TabulatedFunction;
+import ru.ssau.tk.kintoho.LR.functions.factory.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.kintoho.LR.functions.factory.TabulatedFunctionFactory;
 
 public class TabulatedDifferentialOperator implements DifferentialOperator<TabulatedFunction> {
     private TabulatedFunctionFactory factory;
@@ -21,6 +24,7 @@ public class TabulatedDifferentialOperator implements DifferentialOperator<Tabul
     public void setFactory(TabulatedFunctionFactory factory) {
         this.factory = factory;
     }
+
     @Override
     public TabulatedFunction derive(TabulatedFunction function) {
 
@@ -35,5 +39,14 @@ public class TabulatedDifferentialOperator implements DifferentialOperator<Tabul
         }
         yValues[xValues.length - 1] = yValues[xValues.length - 2];
         return factory.create(xValues, yValues);
+    }
+
+    public TabulatedFunction deriveSynchronously(TabulatedFunction function){
+
+        if (function instanceof SynchronizedTabulatedFunction) {
+            return ((SynchronizedTabulatedFunction) function).doSynchronously(this::derive);
+        }
+        SynchronizedTabulatedFunction synchronizedTabulatedFunction = new SynchronizedTabulatedFunction(function);
+        return synchronizedTabulatedFunction.doSynchronously(this::derive);
     }
 }
