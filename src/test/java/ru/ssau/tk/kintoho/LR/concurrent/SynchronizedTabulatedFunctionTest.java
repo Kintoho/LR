@@ -1,20 +1,27 @@
 package ru.ssau.tk.kintoho.LR.concurrent;
 
 import org.testng.annotations.Test;
-import ru.ssau.tk.kintoho.LR.functions.*;
+import ru.ssau.tk.kintoho.LR.functions.ArrayTabulatedFunction;
+import ru.ssau.tk.kintoho.LR.functions.LinkedListTabulatedFunction;
+import ru.ssau.tk.kintoho.LR.functions.Point;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertThrows;
 
 public class SynchronizedTabulatedFunctionTest {
     private final static double DELTA = 0.001;
+    final double[] xValues = new double[]{4., 8., 15, 16., 23., 42.};
+    final double[] yValues = new double[]{1., 2., 3., 4., 5., 6.};
 
     public SynchronizedTabulatedFunction synchronizedTabulatedFunction() {
-        final double[] xValues = new double[]{4., 8., 15, 16., 23., 42.};
-        final double[] yValues = new double[]{1., 2., 3., 4., 5., 6.};
         return new SynchronizedTabulatedFunction(new ArrayTabulatedFunction(xValues, yValues));
+    }
+
+    private SynchronizedTabulatedFunction getSynchronizedListFunction() {
+        return new SynchronizedTabulatedFunction(new LinkedListTabulatedFunction(xValues, yValues));
     }
 
     @Test
@@ -85,5 +92,12 @@ public class SynchronizedTabulatedFunctionTest {
         assertEquals(synchronizedTabulatedFunction().apply(2.), 0.5, DELTA);
         assertEquals(synchronizedTabulatedFunction().apply(1.), 0.25, DELTA);
         assertEquals(synchronizedTabulatedFunction().apply(23.), 5., DELTA);
+    }
+
+    @Test
+    public void testDoSynchronously() {
+        SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedListFunction();
+        assertEquals((int) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::getCount), 6);
+        assertEquals(synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::rightBound), 42.);
     }
 }
