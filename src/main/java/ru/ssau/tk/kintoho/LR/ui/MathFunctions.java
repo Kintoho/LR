@@ -47,7 +47,7 @@ public class MathFunctions extends JDialog {
         nameFunctionMap.put("Тождественная функция", new IdentityFunction());
         nameFunctionMap.put("Увеличение значения на 5", new PlusFunction());
 
-        String[] functions = new String[5];
+        String[] functions = new String[6];
         int i = 0;
         for (String string : nameFunctionMap.keySet()) {
             functions[i++] = string;

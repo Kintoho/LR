@@ -2,21 +2,35 @@ package ru.ssau.tk.kintoho.LR.ui;
 
 
 import javax.swing.*;
-import java.awt.*;
 
 
 public class Window extends JFrame {
-    JButton settingsButton = new JButton("Настройки");
-
+    JMenu functions, settings;
+    JMenuItem element1, element2;
     public Window() {
-        super();
-        getContentPane().setLayout(new FlowLayout());
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setBounds(300, 300, 500, 500);
-        getContentPane().add(settingsButton);
-        compose();
-        addButtonListeners();
-        setVisible(true);
+        JFrame window = new JFrame("Calculator");
+        functions = new JMenu("Functions");
+        settings = new JMenu("Settings");
+        JMenuBar bar = new JMenuBar();
+        bar.add(functions);
+        element1 = new JMenu("TabulatedFunction");
+        element2 = new JMenu("MathFunctions");
+        functions.add(element1);
+        functions.add(element2);
+        element2.add(new JMenuItem("Единичная функция"));
+        element2.add(new JMenuItem("Квадратичная функция"));
+        element2.add(new JMenuItem("Модуль"));
+        element2.add(new JMenuItem("Нулевая функция"));
+        element2.add(new JMenuItem("Тождественная функция"));
+        element2.add(new JMenuItem("Увеличение значения на 5"));
+
+        window.setJMenuBar(bar);
+        window.setSize(900, 600);
+        window.setLayout(null);
+        window.setVisible(true);
+        window.setLocationRelativeTo(null);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
     private void compose() {
