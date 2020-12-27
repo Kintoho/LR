@@ -12,9 +12,9 @@ import java.util.function.Consumer;
 
 public class MathFunctions extends JDialog {
     private JComboBox<String> functionComboBox = new JComboBox<>();
-    private JLabel fromLabel = new JLabel("От:");
-    private JLabel toLabel = new JLabel("До:");
-    private JLabel countLabel = new JLabel("Количество:");
+    private JLabel fromLabel = new JLabel("От");
+    private JLabel toLabel = new JLabel("До");
+    private JLabel countLabel = new JLabel("Количествo");
     private JTextField countField = new JTextField();
     private JTextField fromField = new JTextField();
     private JTextField toField = new JTextField();
@@ -30,7 +30,7 @@ public class MathFunctions extends JDialog {
         this.setBounds(300, 200, 500, 150);
         fillMap();
         compose();
-        addButtonListeners(callback);
+
         setLocationRelativeTo(null);
     }
 

@@ -3,6 +3,7 @@ package ru.ssau.tk.kintoho.LR.ui;
 import ru.ssau.tk.kintoho.LR.exceptions.ArrayIsNotSortedException;
 import ru.ssau.tk.kintoho.LR.functions.TabulatedFunction;
 import ru.ssau.tk.kintoho.LR.functions.factory.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.kintoho.LR.functions.factory.TabulatedFunctionFactory;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -22,7 +23,7 @@ public class TabulatedFunctionWindow extends JDialog {
     private final JButton createButton = new JButton("Создать таблицу");
     private TabulatedFunction function;
 
-    public TabulatedFunctionWindow() {
+    public TabulatedFunctionWindow(TabulatedFunctionFactory factory) {
         super();
         getContentPane().setLayout(new FlowLayout());
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -132,8 +133,6 @@ public class TabulatedFunctionWindow extends JDialog {
         });
     }
 
-    public static void main(String[] args) {
-        new TabulatedFunctionWindow();
-    }
+
 }
 
