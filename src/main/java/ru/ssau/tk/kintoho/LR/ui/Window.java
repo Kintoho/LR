@@ -2,11 +2,14 @@ package ru.ssau.tk.kintoho.LR.ui;
 
 
 import javax.swing.*;
+import java.awt.*;
 
 
 public class Window extends JFrame {
     JMenu functions, settings;
     JMenuItem element1, element2;
+    JButton settingsButton = new JButton("Настройки");
+
     public Window() {
         JFrame window = new JFrame("Calculator");
         functions = new JMenu("Functions");
@@ -33,6 +36,7 @@ public class Window extends JFrame {
 
     }
 
+
     private void compose() {
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -47,6 +51,7 @@ public class Window extends JFrame {
         addListenerForCreateButton();
         addListenerForCountButton();
     }
+
     private void addListenerForCountButton() {
     }
 
@@ -55,7 +60,8 @@ public class Window extends JFrame {
 
     private void addListenerForInputButton() {
     }
+
     public static void main(String[] args) {
-       new Window();
+        new Window();
     }
 }
