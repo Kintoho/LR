@@ -1,14 +1,14 @@
 package ru.ssau.tk.kintoho.LR.ui;
 
+import ru.ssau.tk.kintoho.LR.exceptions.ArrayIsNotSortedException;
+import ru.ssau.tk.kintoho.LR.functions.TabulatedFunction;
+import ru.ssau.tk.kintoho.LR.functions.factory.ArrayTabulatedFunctionFactory;
+
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
-
-import ru.ssau.tk.kintoho.LR.functions.*;
-import ru.ssau.tk.kintoho.LR.functions.factory.*;
-import ru.ssau.tk.kintoho.LR.exceptions.*;
 
 public class TabulatedFunctionWindow extends JDialog {
 
@@ -17,7 +17,7 @@ public class TabulatedFunctionWindow extends JDialog {
     private final AbstractTableModel tableModel = new TableModel(xValues, yValues);
     private final JTable table = new JTable(tableModel);
     private final JLabel label = new JLabel("Введите count:");
-    private final JTextField countField = new JTextField("");
+    private final JTextField countField = new JTextField();
     private final JButton inputButton = new JButton("Ввести");
     private final JButton createButton = new JButton("Создать таблицу");
     private TabulatedFunction function;
