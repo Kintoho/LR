@@ -5,7 +5,8 @@ import javax.swing.*;
 public class Window extends JFrame {
     JMenu menu1, menu2;
     JMenuItem a1, a2;
-    Window(){
+
+    public Window() {
         JFrame window = new JFrame("Calculator");
         menu1 = new JMenu("Functions");
         JMenuBar bar = new JMenuBar();
@@ -15,7 +16,7 @@ public class Window extends JFrame {
         menu1.add(a2);
         bar.add(menu1);
         window.setJMenuBar(bar);
-        window.setSize(900,600);
+        window.setSize(900, 600);
         window.setLayout(null);
         window.setVisible(true);
         window.setLocationRelativeTo(null);
