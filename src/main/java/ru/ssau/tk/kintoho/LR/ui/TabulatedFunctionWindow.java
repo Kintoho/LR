@@ -17,7 +17,7 @@ public class TabulatedFunctionWindow extends JDialog {
     private final AbstractTableModel tableModel = new TableModel(xValues, yValues);
     private final JTable table = new JTable(tableModel);
     private final JLabel label = new JLabel("Введите count:");
-    private final JTextField countField = new JTextField(" ");
+    private final JTextField countField = new JTextField("");
     private final JButton inputButton = new JButton("Ввести");
     private final JButton createButton = new JButton("Создать таблицу");
     private TabulatedFunction function;
@@ -33,6 +33,7 @@ public class TabulatedFunctionWindow extends JDialog {
         inputButton.setFont(fontInputButton);
         Font fontCreateButton = new Font("Serif", Font.PLAIN, 14);
         createButton.setFont(fontCreateButton);
+        setTitle("Таблица");
         getContentPane().add(label);
         getContentPane().add(countField);
         getContentPane().add(inputButton);

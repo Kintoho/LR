@@ -1,30 +1,47 @@
 package ru.ssau.tk.kintoho.LR.ui;
 
+
 import javax.swing.*;
+import java.awt.*;
+
 
 public class Window extends JFrame {
-    JMenu menu1, menu2;
-    JMenuItem a1, a2;
+    JButton settingsButton = new JButton("Настройки");
 
     public Window() {
-        JFrame window = new JFrame("Calculator");
-        menu1 = new JMenu("Functions");
-        JMenuBar bar = new JMenuBar();
-        a1 = new JMenuItem("TabulatedFunction");
-        a2 = new JMenuItem("MathFunction");
-        menu1.add(a1);
-        menu1.add(a2);
-        bar.add(menu1);
-        window.setJMenuBar(bar);
-        window.setSize(900, 600);
-        window.setLayout(null);
-        window.setVisible(true);
-        window.setLocationRelativeTo(null);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        super();
+        getContentPane().setLayout(new FlowLayout());
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setBounds(300, 300, 500, 500);
+        getContentPane().add(settingsButton);
+        compose();
+        addButtonListeners();
+        setVisible(true);
+    }
+
+    private void compose() {
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+
 
     }
 
+    private void addButtonListeners() {
+        addListenerForInputButton();
+        addListenerForCreateButton();
+        addListenerForCountButton();
+    }
+    private void addListenerForCountButton() {
+    }
+
+    private void addListenerForCreateButton() {
+    }
+
+    private void addListenerForInputButton() {
+    }
     public static void main(String[] args) {
-        new Window();
+       new Window();
     }
 }
