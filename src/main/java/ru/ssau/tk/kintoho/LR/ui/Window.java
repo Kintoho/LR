@@ -5,14 +5,11 @@ import ru.ssau.tk.kintoho.LR.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.kintoho.LR.functions.factory.TabulatedFunctionFactory;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 public class Window extends JFrame {
     JMenu settings, functions;
     private TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
-    private WindowModel tableModel = new WindowModel();
     public Window() {
         JFrame window = new JFrame("Calculator");
         functions = new JMenu("Functions");
@@ -22,6 +19,7 @@ public class Window extends JFrame {
         bar.add(settings);
         functions.add(createMathFunction());
         functions.add(createTabulatedFunction());
+        settings.add(settingsMenu());
 
         window.setJMenuBar(bar);
         window.setSize(900, 600);
@@ -30,25 +28,16 @@ public class Window extends JFrame {
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    }
 
-    private void compose() {
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setAutoCreateGaps(true);
-        layout.setAutoCreateContainerGaps(true);
     }
 
     private JMenu createMathFunction() {
         JMenu functions = new JMenu("MathFunctions");
-        JMenuItem open = new JMenuItem("Открыть");
+        JMenuItem open = new JMenuItem("Open");
         functions.add(open);
-        open.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MathFunctions open = new MathFunctions(factory, data -> tableModel.setFunction(data));
-                open.setVisible(true);
-            }
+        open.addActionListener(e -> {
+            MathFunctions open1 = new MathFunctions();
+            open1.setVisible(true);
         });
         return functions;
     }
@@ -57,28 +46,25 @@ public class Window extends JFrame {
         JMenu functions = new JMenu("TabulatedFunction");
         JMenuItem itemCreate = new JMenuItem("Create");
         functions.add(itemCreate);
-        itemCreate.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TabulatedFunctionWindow tabulatedFunction = new TabulatedFunctionWindow(factory);
-                tabulatedFunction.setVisible(true);
-            }
+        itemCreate.addActionListener(e -> {
+            TabulatedFunctionWindow tabulatedFunction = new TabulatedFunctionWindow(factory);
+            tabulatedFunction.setVisible(true);
         });
         return functions;
     }
-    private void addButtonListeners() {
-        addListenerForInputButton();
-        addListenerForCreateButton();
-        addListenerForCountButton();
-    }
-    private void addListenerForCountButton() {
+
+    private JMenu settingsMenu() {
+        JMenu settings = new JMenu("Setting");
+        JMenuItem open = new JMenuItem("Open");
+        settings.add(open);
+        open.addActionListener(e -> {
+            SettingMenu settings1 = new SettingMenu();
+            settings1.setVisible(true);
+            factory = settings1.getFactory();
+        });
+        return settings;
     }
 
-    private void addListenerForCreateButton() {
-    }
-
-    private void addListenerForInputButton() {
-    }
     public static void main(String[] args) {
        new Window();
     }

@@ -132,7 +132,5 @@ public class TabulatedFunctionWindow extends JDialog {
             dispose();
         });
     }
-
-
 }
 
