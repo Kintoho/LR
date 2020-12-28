@@ -1,33 +1,43 @@
 package ru.ssau.tk.kintoho.LR.ui;
 
-
 import ru.ssau.tk.kintoho.LR.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.kintoho.LR.functions.factory.TabulatedFunctionFactory;
 
 import javax.swing.*;
-
+import java.awt.*;
 
 public class Window extends JFrame {
     JMenu settings, functions;
     private TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
+
     public Window() {
         JFrame window = new JFrame("Calculator");
         functions = new JMenu("Functions");
         settings = new JMenu("Settings");
+        JButton calculate = new JButton("Калькулятор");
         JMenuBar bar = new JMenuBar();
         bar.add(functions);
         bar.add(settings);
         functions.add(createMathFunction());
         functions.add(createTabulatedFunction());
         settings.add(settingsMenu());
-
+        window.add(calculate);
+        setLayout(new FlowLayout());
         window.setJMenuBar(bar);
-        window.setSize(900, 600);
-        window.setLayout(null);
+        window.setSize(300, 300);
+        //window.setLayout(null);
         window.setVisible(true);
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        calculate.addActionListener(e -> {
+            Calculator calculator = new Calculator();
+            //calculator.setModalityType(JDialog.DEFAULT_MODALITY_TYPE);
+            calculator.setVisible(true);
+        });
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
 
     }
 
@@ -66,6 +76,6 @@ public class Window extends JFrame {
     }
 
     public static void main(String[] args) {
-       new Window();
+        new Window();
     }
 }

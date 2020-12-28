@@ -25,8 +25,9 @@ public class TabulatedFunctionWindow extends JDialog {
 
     public TabulatedFunctionWindow(TabulatedFunctionFactory factory) {
         super();
+        setModal(true);
         getContentPane().setLayout(new FlowLayout());
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        //setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(200, 200, 400, 500);
         Font fontLabel = new Font("Serif", Font.PLAIN, 14);
         label.setFont(fontLabel);
@@ -41,8 +42,8 @@ public class TabulatedFunctionWindow extends JDialog {
         getContentPane().add(createButton);
         compose();
         addButtonListeners();
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        setVisible(true);
+        //table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        //setVisible(true);
         setLocationRelativeTo(null);
     }
 
@@ -132,5 +133,9 @@ public class TabulatedFunctionWindow extends JDialog {
             dispose();
         });
     }
-}
 
+    public TabulatedFunction getFunction() {
+        return function;
+    }
+
+}
