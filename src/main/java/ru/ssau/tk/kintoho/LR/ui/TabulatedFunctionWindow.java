@@ -13,8 +13,8 @@ import java.util.List;
 
 public class TabulatedFunctionWindow extends JDialog {
 
-    private final List<Double> xValues = new ArrayList<>();
-    private final List<Double> yValues = new ArrayList<>();
+    private final List<String> xValues = new ArrayList<>();
+    private final List<String> yValues = new ArrayList<>();
     private final AbstractTableModel tableModel = new TableModel(xValues, yValues);
     private final JTable table = new JTable(tableModel);
     private final JLabel label = new JLabel("Введите count:");
@@ -22,13 +22,13 @@ public class TabulatedFunctionWindow extends JDialog {
     private final JButton inputButton = new JButton("Ввести");
     private final JButton createButton = new JButton("Создать таблицу");
     private TabulatedFunction function;
+    int err = 1;
 
     public TabulatedFunctionWindow(TabulatedFunctionFactory factory) {
         super();
         setModal(true);
         getContentPane().setLayout(new FlowLayout());
-        //setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setBounds(200, 200, 400, 500);
+        setSize(400, 500);
         Font fontLabel = new Font("Serif", Font.PLAIN, 14);
         label.setFont(fontLabel);
         Font fontInputButton = new Font("Serif", Font.PLAIN, 14);
@@ -41,15 +41,10 @@ public class TabulatedFunctionWindow extends JDialog {
         getContentPane().add(inputButton);
         getContentPane().add(createButton);
         compose();
-        addButtonListeners();
-        //table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //setVisible(true);
-        setLocationRelativeTo(null);
-    }
-
-    private void addButtonListeners() {
         addListenerForInputButton();
         addListenerForCreateButton();
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        setLocationRelativeTo(null);
     }
 
     void compose() {
@@ -96,8 +91,8 @@ public class TabulatedFunctionWindow extends JDialog {
                 int count = Integer.parseInt(countField.getText());
                 clearTable(tableModel.getRowCount());
                 for (int i = 0; i < count; i++) {
-                    xValues.add(0.);
-                    yValues.add(0.);
+                    xValues.add("");
+                    yValues.add("");
                     tableModel.fireTableDataChanged();
                 }
                 if (tableModel.getRowCount() > 1) {
@@ -115,16 +110,22 @@ public class TabulatedFunctionWindow extends JDialog {
             try {
                 double[] x = new double[xValues.size()];
                 double[] y = new double[yValues.size()];
-                x[0] = xValues.get(0);
-                y[0] = yValues.get(0);
-                for (int i = 1; i < xValues.size(); i++) {
-                    if (xValues.get(i - 1) > xValues.get(i)) {
-                        throw new ArrayIsNotSortedException();
-                    }
-                    x[i] = xValues.get(i);
-                    y[i] = yValues.get(i);
 
+                for (int i = 0; i < xValues.size()-1; i++) {
+                    if (Double.parseDouble(xValues.get(i)) > Double.parseDouble(xValues.get(i + 1))) {
+                        err = 0;
+                    }
                 }
+                if(err != 0) {
+                    for (int i = 0; i < xValues.size(); i++) {
+                        x[i] = Double.parseDouble(xValues.get(i));
+                        y[i] = Double.parseDouble(yValues.get(i));
+                    }
+                }
+                else {
+                    throw new ArrayIsNotSortedException();
+                }
+
                 function = new ArrayTabulatedFunctionFactory().create(x, y);
                 System.out.println(function.toString());
             } catch (Exception e) {
@@ -138,4 +139,15 @@ public class TabulatedFunctionWindow extends JDialog {
         return function;
     }
 
+    public void setFunction(TabulatedFunction function) {
+        this.function = function;
+    }
+
+    public List<String> getXValues() {
+        return xValues;
+    }
+
+    public List<String> getYValues() {
+        return yValues;
+    }
 }

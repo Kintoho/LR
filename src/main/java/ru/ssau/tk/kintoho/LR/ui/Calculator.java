@@ -1,5 +1,10 @@
 package ru.ssau.tk.kintoho.LR.ui;
 
+import ru.ssau.tk.kintoho.LR.functions.TabulatedFunction;
+import ru.ssau.tk.kintoho.LR.functions.factory.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.kintoho.LR.functions.factory.TabulatedFunctionFactory;
+import ru.ssau.tk.kintoho.LR.io.FunctionsIO;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
@@ -7,18 +12,13 @@ import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
-
-import ru.ssau.tk.kintoho.LR.functions.*;
-import ru.ssau.tk.kintoho.LR.io.*;
-import ru.ssau.tk.kintoho.LR.functions.factory.*;
-
 public class Calculator extends JDialog {
 
     JMenu menuSettings = new JMenu("Выбор фабрики");
     JMenuBar menuBar = new JMenuBar();
 
-    private final ArrayList<Double> xValues;
-    private final ArrayList<Double> yValues;
+    private final ArrayList<String> xValues;
+    private final ArrayList<String> yValues;
     private final AbstractTableModel tableModel;
     private final JTable table;
     private TabulatedFunction function1;
@@ -56,10 +56,10 @@ public class Calculator extends JDialog {
             TabulatedFunctionWindow table = new TabulatedFunctionWindow(factory);
             //table.setModalityType(JDialog.DEFAULT_MODALITY_TYPE);
             table.setVisible(true);
-            function1 = table.getFunction();
+            //function1 = table.getFunction();
             for (int i = 0; i < tableModel.getRowCount(); i++) {
-                xValues.add(function1.getX(i));
-                yValues.add(function1.getY(i));
+                xValues.add(table.getXValues().get(i));
+                yValues.add(table.getYValues().get(i));
             }
             tableModel.fireTableDataChanged();
             //function = table.getFunction();
@@ -74,15 +74,15 @@ public class Calculator extends JDialog {
                 try (BufferedReader in = new BufferedReader(new FileReader(file))) {
                     TabulatedFunction function = FunctionsIO.readTabulatedFunction(in, factory);
                     for (int i = 0; i < function.getCount(); i++) {
-                        xValues.add(i, function.getX(i));
-                        yValues.add(i, function.getY(i));
+                        xValues.add(i, String.valueOf(function.getX(i)));
+                        yValues.add(i, String.valueOf(function.getY(i)));
                         tableModel.fireTableDataChanged();
                     }
                     double[] xValues2 = new double[function.getCount()];
                     double[] yValues2 = new double[function.getCount()];
                     for (int i = 0; i < table.getRowCount(); i++) {
-                        xValues2[i] = xValues.get(i);
-                        yValues2[i] = yValues.get(i);
+                        xValues2[i] = Double.parseDouble(xValues.get(i));
+                        yValues2[i] = Double.parseDouble(yValues.get(i));
                     }
                     size = function.getCount();
                     System.out.println(function.toString());

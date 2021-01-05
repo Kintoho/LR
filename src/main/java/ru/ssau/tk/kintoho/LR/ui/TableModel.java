@@ -11,10 +11,10 @@ public class TableModel extends AbstractTableModel {
     @Serial
     private static final long serialVersionUID = -2955931764405857357L;
 
-    private final List<Double> xValues;
-    private final List<Double> yValues;
+    private final List<String> xValues;
+    private final List<String> yValues;
 
-    public TableModel(List<Double> xValues, List<Double> yValues) {
+    public TableModel(List<String> xValues, List<String> yValues) {
         this.xValues = xValues;
         this.yValues = yValues;
     }
@@ -47,15 +47,15 @@ public class TableModel extends AbstractTableModel {
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) throws NumberFormatException {
         if (columnIndex == X_COLUMN_NUMBER) {
             try {
-                xValues.set(rowIndex, Double.valueOf(aValue.toString()));
+                xValues.set(rowIndex, String.valueOf(aValue.toString()));
             } catch (Exception e) {
-                xValues.set(rowIndex, 0.0);
+                xValues.set(rowIndex, "");
             }
         } else if (columnIndex == Y_COLUMN_NUMBER) {
             try {
-                yValues.set(rowIndex, Double.valueOf(aValue.toString()));
+                yValues.set(rowIndex, String.valueOf(aValue.toString()));
             } catch (Exception e) {
-                yValues.set(rowIndex, 0.0);
+                yValues.set(rowIndex, "");
             }
         }
     }

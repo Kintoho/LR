@@ -21,17 +21,17 @@ public class Window extends JFrame {
         functions.add(createMathFunction());
         functions.add(createTabulatedFunction());
         settings.add(settingsMenu());
+        calculate.setSize(50, 50);
         window.add(calculate);
-        setLayout(new FlowLayout());
+        window.setLayout(new FlowLayout());
         window.setJMenuBar(bar);
         window.setSize(300, 300);
-        //window.setLayout(null);
         window.setVisible(true);
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         calculate.addActionListener(e -> {
             Calculator calculator = new Calculator();
-            //calculator.setModalityType(JDialog.DEFAULT_MODALITY_TYPE);
+            calculator.setModalityType(JDialog.DEFAULT_MODALITY_TYPE);
             calculator.setVisible(true);
         });
         GroupLayout layout = new GroupLayout(getContentPane());
