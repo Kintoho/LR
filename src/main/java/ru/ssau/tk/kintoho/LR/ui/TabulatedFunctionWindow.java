@@ -111,18 +111,17 @@ public class TabulatedFunctionWindow extends JDialog {
                 double[] x = new double[xValues.size()];
                 double[] y = new double[yValues.size()];
 
-                for (int i = 0; i < xValues.size()-1; i++) {
+                for (int i = 0; i < xValues.size() - 1; i++) {
                     if (Double.parseDouble(xValues.get(i)) > Double.parseDouble(xValues.get(i + 1))) {
                         err = 0;
                     }
                 }
-                if(err != 0) {
+                if (err != 0) {
                     for (int i = 0; i < xValues.size(); i++) {
                         x[i] = Double.parseDouble(xValues.get(i));
                         y[i] = Double.parseDouble(yValues.get(i));
                     }
-                }
-                else {
+                } else {
                     throw new ArrayIsNotSortedException();
                 }
 
