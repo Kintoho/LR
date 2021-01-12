@@ -34,12 +34,12 @@ public class Calculator extends JDialog {
         JFileChooser fileOpen = new JFileChooser();
         fileOpen.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileOpen.setDialogTitle("Загрузка функции");
-        fileOpen.addChoosableFileFilter(new FileNameExtensionFilter("Text files", "txt"));
+        fileOpen.addChoosableFileFilter(new FileNameExtensionFilter("Text files", "bin"));
         fileOpen.setAcceptAllFileFilterUsed(false);
         JFileChooser fileSave = new JFileChooser();
         fileSave.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileSave.setDialogTitle("Сохранение функции");
-        fileSave.addChoosableFileFilter(new FileNameExtensionFilter("Text files", "txt"));
+        fileSave.addChoosableFileFilter(new FileNameExtensionFilter("Text files", "bin"));
         fileSave.setAcceptAllFileFilterUsed(false);
         xValues = new ArrayList<>();
         yValues = new ArrayList<>();
@@ -56,13 +56,12 @@ public class Calculator extends JDialog {
             TabulatedFunctionWindow table = new TabulatedFunctionWindow(factory);
             //table.setModalityType(JDialog.DEFAULT_MODALITY_TYPE);
             table.setVisible(true);
-            //function1 = table.getFunction();
-            for (int i = 0; i < tableModel.getRowCount(); i++) {
+            for (int i = 0; i < size; i++) {
                 xValues.add(table.getXValues().get(i));
                 yValues.add(table.getYValues().get(i));
             }
             tableModel.fireTableDataChanged();
-            //function = table.getFunction();
+            function1 = table.getFunction();
         });
         JButton load = new JButton("Загрузить");
         load.addActionListener(e -> {
@@ -71,8 +70,8 @@ public class Calculator extends JDialog {
             fileOpen.showOpenDialog(calculator);
             File file = fileOpen.getSelectedFile();
             if (file != null) {
-                try (BufferedReader in = new BufferedReader(new FileReader(file))) {
-                    TabulatedFunction function = FunctionsIO.readTabulatedFunction(in, factory);
+                try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
+                    TabulatedFunction function = FunctionsIO.deserialize(in);
                     for (int i = 0; i < function.getCount(); i++) {
                         xValues.add(i, String.valueOf(function.getX(i)));
                         yValues.add(i, String.valueOf(function.getY(i)));
@@ -87,7 +86,7 @@ public class Calculator extends JDialog {
                     size = function.getCount();
                     System.out.println(function.toString());
                     function1 = factory.create(xValues2, yValues2);
-                } catch (IOException err) {
+                } catch (IOException | ClassNotFoundException err) {
                     err.printStackTrace();
                 }
             }
@@ -103,14 +102,14 @@ public class Calculator extends JDialog {
                     double[] xValues2 = new double[table.getRowCount()];
                     double[] yValues2 = new double[table.getRowCount()];
                     for (int i = 0; i < table.getRowCount(); i++) {
-                        xValues2[i] = Double.parseDouble(table.getValueAt(i, 0).toString());
-                        yValues2[i] = Double.parseDouble(table.getValueAt(i, 1).toString());
+                        xValues2[i] = Double.parseDouble(table.getValueAt(i, 2).toString());
+                        yValues2[i] = Double.parseDouble(table.getValueAt(i, 3).toString());
                     }
 
                     function1 = factory.create(xValues2, yValues2);
 
-                    try (BufferedWriter out = new BufferedWriter(new FileWriter(file))) {
-                        FunctionsIO.writeTabulatedFunction(out, function1);
+                    try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
+                        FunctionsIO.serialize(out, function1);
                     } catch (IOException error) {
                         error.printStackTrace();
                     }
