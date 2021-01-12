@@ -1,7 +1,6 @@
 package ru.ssau.tk.kintoho.LR.ui;
 
 import ru.ssau.tk.kintoho.LR.functions.*;
-import ru.ssau.tk.kintoho.LR.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.kintoho.LR.functions.factory.TabulatedFunctionFactory;
 
 import javax.swing.*;
@@ -20,12 +19,9 @@ public class MathFunctions extends JDialog {
     private final JTextField fromField = new JTextField();
     private final JTextField toField = new JTextField();
     private final Map<String, MathFunction> nameFunctionMap = new HashMap<>();
-
-    public static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
     protected TabulatedFunction function;
 
-    public MathFunctions() {
-        super();
+    public MathFunctions(TabulatedFunctionFactory factory) {
         getContentPane().setLayout(new FlowLayout());
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setModal(true);
@@ -41,12 +37,10 @@ public class MathFunctions extends JDialog {
         getContentPane().add(buttonCreateFunction);
         getContentPane().add(functionComboBox);
         compose();
-
-        addButtonListeners();
-        setVisible(true);
+        addButtonListeners(factory);
     }
 
-    private void addButtonListeners() {
+    private void addButtonListeners(TabulatedFunctionFactory factory) {
         buttonCreateFunction.addActionListener(evt -> {
             try {
                 String func = (String) functionComboBox.getSelectedItem();
@@ -54,7 +48,7 @@ public class MathFunctions extends JDialog {
                 double xFrom = Double.parseDouble(fromField.getText());
                 double xTo = Double.parseDouble(toField.getText());
                 int count = Integer.parseInt(countField.getText());
-                function = MathFunctions.factory.create(selectedFunction, xFrom, xTo, count);
+                function = factory.create(selectedFunction, xFrom, xTo, count);
                 System.out.println(function.toString());
                 setVisible(true);
                 dispose();

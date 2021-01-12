@@ -2,7 +2,6 @@ package ru.ssau.tk.kintoho.LR.ui;
 
 import ru.ssau.tk.kintoho.LR.exceptions.ArrayIsNotSortedException;
 import ru.ssau.tk.kintoho.LR.functions.TabulatedFunction;
-import ru.ssau.tk.kintoho.LR.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.kintoho.LR.functions.factory.TabulatedFunctionFactory;
 
 import javax.swing.*;
@@ -25,7 +24,6 @@ public class TabulatedFunctionWindow extends JDialog {
     int err = 1;
 
     public TabulatedFunctionWindow(TabulatedFunctionFactory factory) {
-        super();
         setModal(true);
         getContentPane().setLayout(new FlowLayout());
         setSize(400, 500);
@@ -42,37 +40,11 @@ public class TabulatedFunctionWindow extends JDialog {
         getContentPane().add(createButton);
         compose();
         addListenerForInputButton();
-        addListenerForCreateButton();
+        addListenerForCreateButton(factory);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         setLocationRelativeTo(null);
     }
 
-    void compose() {
-        //создаём менеджер компановки и скроллинг
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setAutoCreateGaps(true);
-        layout.setAutoCreateContainerGaps(true);
-        JScrollPane tableScrollPane = new JScrollPane(table);
-        //реализуем горизонтальную компановку
-        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                .addGroup(layout.createSequentialGroup()
-                        .addComponent(label)
-                        .addComponent(countField)
-                        .addComponent(inputButton))
-                .addComponent(tableScrollPane)
-                .addComponent(createButton)
-        );
-        //реализуем вертикальную компановку
-        layout.setVerticalGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(label)
-                        .addComponent(countField)
-                        .addComponent(inputButton))
-                .addComponent(tableScrollPane)
-                .addComponent(createButton)
-        );
-    }
 
     //метод для очистки таблицы
     public void clearTable(int n) {
@@ -105,7 +77,7 @@ public class TabulatedFunctionWindow extends JDialog {
     }
 
     //добавляем реализацию кнопки "Создать" и выводим полученную функцию в консоль для проверки
-    public void addListenerForCreateButton() {
+    public void addListenerForCreateButton(TabulatedFunctionFactory factory) {
         createButton.addActionListener(event -> {
             try {
                 double[] x = new double[xValues.size()];
@@ -125,13 +97,40 @@ public class TabulatedFunctionWindow extends JDialog {
                     throw new ArrayIsNotSortedException();
                 }
 
-                function = new ArrayTabulatedFunctionFactory().create(x, y);
+                function = factory.create(x,y);
                 System.out.println(function.toString());
             } catch (Exception e) {
                 new Errors(this, e);
             }
             dispose();
         });
+    }
+
+    void compose() {
+        //создаём менеджер компановки и скроллинг
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+        JScrollPane tableScrollPane = new JScrollPane(table);
+        //реализуем горизонтальную компановку
+        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                .addGroup(layout.createSequentialGroup()
+                        .addComponent(label)
+                        .addComponent(countField)
+                        .addComponent(inputButton))
+                .addComponent(tableScrollPane)
+                .addComponent(createButton)
+        );
+        //реализуем вертикальную компановку
+        layout.setVerticalGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(label)
+                        .addComponent(countField)
+                        .addComponent(inputButton))
+                .addComponent(tableScrollPane)
+                .addComponent(createButton)
+        );
     }
 
     public TabulatedFunction getFunction() {

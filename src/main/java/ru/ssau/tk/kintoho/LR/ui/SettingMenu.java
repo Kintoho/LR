@@ -1,10 +1,11 @@
 package ru.ssau.tk.kintoho.LR.ui;
 
+import ru.ssau.tk.kintoho.LR.functions.factory.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.kintoho.LR.functions.factory.LinkedListTabulatedFunctionFactory;
+import ru.ssau.tk.kintoho.LR.functions.factory.TabulatedFunctionFactory;
+
 import javax.swing.*;
 import java.awt.*;
-
-
-import ru.ssau.tk.kintoho.LR.functions.factory.*;
 
 public class SettingMenu extends JDialog {
     private TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
@@ -26,9 +27,7 @@ public class SettingMenu extends JDialog {
             if (e.getSource() == array) {
                 factory = new ArrayTabulatedFunctionFactory();
             }
-        });
-        list.addActionListener(e -> {
-            if (e.getSource() == list) {
+            else if (e.getSource() == list) {
                 factory = new LinkedListTabulatedFunctionFactory();
             }
         });
@@ -43,7 +42,6 @@ public class SettingMenu extends JDialog {
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(label))
                 .addGroup(layout.createParallelGroup().addComponent(array).addComponent(list)));
-
     }
 
     public TabulatedFunctionFactory getFactory() {

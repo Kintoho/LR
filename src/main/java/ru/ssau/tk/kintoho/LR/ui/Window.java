@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class Window extends JFrame {
     JMenu settings, functions;
-    private TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
+    protected static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
 
     public Window() {
         JFrame window = new JFrame("Calculator");
@@ -41,12 +41,24 @@ public class Window extends JFrame {
 
     }
 
+    private JMenu settingsMenu() {
+        JMenu settings = new JMenu("Setting");
+        JMenuItem open = new JMenuItem("Open");
+        settings.add(open);
+        open.addActionListener(e -> {
+            SettingMenu settings1 = new SettingMenu();
+            settings1.setVisible(true);
+            factory = settings1.getFactory();
+        });
+        return settings;
+    }
+
     private JMenu createMathFunction() {
         JMenu functions = new JMenu("MathFunctions");
         JMenuItem open = new JMenuItem("Open");
         functions.add(open);
         open.addActionListener(e -> {
-            MathFunctions open1 = new MathFunctions();
+            MathFunctions open1 = new MathFunctions(factory);
             open1.setVisible(true);
         });
         return functions;
@@ -61,18 +73,6 @@ public class Window extends JFrame {
             tabulatedFunction.setVisible(true);
         });
         return functions;
-    }
-
-    private JMenu settingsMenu() {
-        JMenu settings = new JMenu("Setting");
-        JMenuItem open = new JMenuItem("Open");
-        settings.add(open);
-        open.addActionListener(e -> {
-            SettingMenu settings1 = new SettingMenu();
-            settings1.setVisible(true);
-            factory = settings1.getFactory();
-        });
-        return settings;
     }
 
     public static void main(String[] args) {
