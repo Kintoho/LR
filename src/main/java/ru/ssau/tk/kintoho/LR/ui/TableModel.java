@@ -42,7 +42,6 @@ public class TableModel extends AbstractTableModel {
         throw new UnsupportedOperationException();
     }
 
-
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) throws NumberFormatException {
         if (columnIndex == X_COLUMN_NUMBER) {
