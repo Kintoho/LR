@@ -62,7 +62,7 @@ public class Calculator extends JDialog {
                 tableModel.fireTableDataChanged();
             }
             // tableModel.fireTableDataChanged();
-            //function1 = table.getFunction();
+            function1 = table.getFunction();
         });
         JButton load = new JButton("Загрузить");
         load.addActionListener(e -> {
@@ -103,8 +103,8 @@ public class Calculator extends JDialog {
                     double[] xValues2 = new double[table.getRowCount()];
                     double[] yValues2 = new double[table.getRowCount()];
                     for (int i = 0; i < table.getRowCount(); i++) {
-                        xValues2[i] = Double.parseDouble(table.getValueAt(i, 2).toString());
-                        yValues2[i] = Double.parseDouble(table.getValueAt(i, 3).toString());
+                        xValues2[i] = Double.parseDouble(table.getValueAt(i, 1).toString());
+                        yValues2[i] = Double.parseDouble(table.getValueAt(i, 2).toString());
                     }
 
                     function1 = factory.create(xValues2, yValues2);
