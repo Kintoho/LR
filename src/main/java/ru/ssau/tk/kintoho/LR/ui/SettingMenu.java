@@ -27,7 +27,9 @@ public class SettingMenu extends JDialog {
             if (e.getSource() == array) {
                 factory = new ArrayTabulatedFunctionFactory();
             }
-            else if (e.getSource() == list) {
+        });
+        list.addActionListener(e -> {
+            if (e.getSource() == list) {
                 factory = new LinkedListTabulatedFunctionFactory();
             }
         });
