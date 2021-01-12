@@ -148,4 +148,7 @@ public class TabulatedFunctionWindow extends JDialog {
     public List<String> getYValues() {
         return yValues;
     }
+    public int getCount(){
+        return Integer.parseInt(countField.getText());
+    }
 }

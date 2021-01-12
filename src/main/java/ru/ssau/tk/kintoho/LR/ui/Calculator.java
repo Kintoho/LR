@@ -56,12 +56,13 @@ public class Calculator extends JDialog {
             TabulatedFunctionWindow table = new TabulatedFunctionWindow(factory);
             //table.setModalityType(JDialog.DEFAULT_MODALITY_TYPE);
             table.setVisible(true);
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < table.getCount(); i++) {
                 xValues.add(table.getXValues().get(i));
                 yValues.add(table.getYValues().get(i));
+                tableModel.fireTableDataChanged();
             }
-            tableModel.fireTableDataChanged();
-            function1 = table.getFunction();
+            // tableModel.fireTableDataChanged();
+            //function1 = table.getFunction();
         });
         JButton load = new JButton("Загрузить");
         load.addActionListener(e -> {
