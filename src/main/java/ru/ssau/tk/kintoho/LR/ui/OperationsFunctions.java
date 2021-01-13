@@ -1,15 +1,15 @@
 package ru.ssau.tk.kintoho.LR.ui;
 
+import ru.ssau.tk.kintoho.LR.functions.TabulatedFunction;
+import ru.ssau.tk.kintoho.LR.functions.factory.TabulatedFunctionFactory;
+import ru.ssau.tk.kintoho.LR.operations.TabulatedFunctionOperationService;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import ru.ssau.tk.kintoho.LR.functions.*;
-import ru.ssau.tk.kintoho.LR.operations.*;
-import ru.ssau.tk.kintoho.LR.functions.factory.*;
 
 public class OperationsFunctions extends JDialog {
     Map<String, TabulatedFunction> map = new HashMap<>();
