@@ -84,6 +84,20 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         return currentNode;
     }
 
+    private Node floorNodeOfX(double x) {
+        if (x < head.x) {
+            throw new IllegalArgumentException("X is less than minimal value in linked list");
+        }
+        Node someNode = head;
+        for (int i = 0; i < count; i++) {
+            if (someNode.x <= x) {
+                someNode = someNode.next;
+            } else {
+                return someNode.prev;
+            }
+        }
+        return head.prev;
+    }
 
     @Override
     public int getCount() {
@@ -171,6 +185,27 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             throw new InterpolationException("X is out of bounds of interpolation");
         }
         return interpolate(x, getNode(floorIndex).x, getNode(floorIndex + 1).x, getNode(floorIndex).y, getNode(floorIndex + 1).y);
+    }
+
+    protected double interpolate(double x, Node floorNode) {
+        Node right = floorNode.next;
+        if (x < floorNode.x || right.x < x) {
+            throw new InterpolationException("X is out of bounds of interpolation");
+        }
+        return interpolate(x, floorNode.x, right.x, floorNode.y, right.y);
+    }
+
+    @Override
+    public double apply(double x) {
+        if (x < leftBound()) {
+            return extrapolateLeft(x);
+        } else if (x > rightBound()) {
+            return extrapolateRight(x);
+        } else if (indexOfX(x) != -1) {
+            return getY(indexOfX(x));
+        } else {
+            return interpolate(x, floorNodeOfX(x));
+        }
     }
 
     @Override
