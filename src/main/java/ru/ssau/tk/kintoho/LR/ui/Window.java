@@ -12,6 +12,13 @@ public class Window extends JFrame {
 
     public Window() {
         JFrame window = new JFrame("Калькулятор");
+        Image image = new ImageIcon("Хабиб.jpeg").getImage();
+        window.setContentPane(new JPanel(new BorderLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.drawImage(image, 0, 0, null);
+            }
+        });
         functions = new JMenu("Функции");
         settings = new JMenu("Настройки");
         JButton calculate = new JButton("Калькулятор");
@@ -22,14 +29,13 @@ public class Window extends JFrame {
         functions.add(createTabulatedFunction());
         settings.add(settingsMenu());
         JButton diff = new JButton("Дифференцировать");
-        add(diff);
         diff.setSize(50, 50);
         window.add(diff);
         calculate.setSize(50, 50);
         window.add(calculate);
         window.setLayout(new FlowLayout());
         window.setJMenuBar(bar);
-        window.setSize(300, 300);
+        window.setSize(600, 300);
         window.setVisible(true);
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,7 +52,6 @@ public class Window extends JFrame {
         getContentPane().setLayout(layout);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
-
     }
 
     private JMenu settingsMenu() {
