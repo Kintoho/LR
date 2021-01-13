@@ -1,5 +1,7 @@
 package ru.ssau.tk.kintoho.LR.io;
 
+import com.thoughtworks.xstream.XStream;
+import ru.ssau.tk.kintoho.LR.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.kintoho.LR.functions.Point;
 import ru.ssau.tk.kintoho.LR.functions.TabulatedFunction;
 import ru.ssau.tk.kintoho.LR.functions.factory.TabulatedFunctionFactory;
@@ -74,5 +76,17 @@ public final class FunctionsIO {
 
     public static TabulatedFunction deserialize(BufferedInputStream stream) throws IOException, ClassNotFoundException {
         return (TabulatedFunction) new ObjectInputStream(stream).readObject();
+    }
+
+    public static void serializeXml(BufferedWriter writer, ArrayTabulatedFunction function) throws IOException {
+        XStream xmlWriter = new XStream();
+        String xmlString = xmlWriter.toXML(function);
+        writer.write(xmlString);
+        writer.flush();
+    }
+
+    public static ArrayTabulatedFunction deserializeXml(BufferedReader reader){
+        XStream xmlReader = new XStream();
+        return (ArrayTabulatedFunction) xmlReader.fromXML(reader);
     }
 }

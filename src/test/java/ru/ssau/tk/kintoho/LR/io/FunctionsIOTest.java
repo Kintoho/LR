@@ -1,19 +1,23 @@
 package ru.ssau.tk.kintoho.LR.io;
 
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.Test;
+import ru.ssau.tk.kintoho.LR.functions.ArrayTabulatedFunction;
+import ru.ssau.tk.kintoho.LR.functions.LinkedListTabulatedFunction;
+import ru.ssau.tk.kintoho.LR.functions.SqrFunction;
+import ru.ssau.tk.kintoho.LR.functions.TabulatedFunction;
+import ru.ssau.tk.kintoho.LR.functions.factory.ArrayTabulatedFunctionFactory;
+
 import java.io.*;
 import java.util.Objects;
 
-import org.testng.annotations.AfterClass;
-import ru.ssau.tk.kintoho.LR.functions.*;
-import ru.ssau.tk.kintoho.LR.functions.factory.*;
-import org.testng.annotations.Test;
-
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 public class FunctionsIOTest {
     double[] xValues = new double[]{1., 2., 3., 4., 5.};
     double[] yValues = new double[]{6., 7., 8., 9., 10.};
     private final TabulatedFunction listFunction = new LinkedListTabulatedFunction(xValues, yValues);
+    private final ArrayTabulatedFunction arrayFunction = new ArrayTabulatedFunction(xValues, yValues);
 
     @Test
     public void testReadAndWriteTabulatedFunction() {
@@ -80,6 +84,25 @@ public class FunctionsIOTest {
             }
         } catch (IOException | ClassNotFoundException ioe) {
             ioe.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testSerializeDeserializeXml(){
+        try (BufferedWriter out = new BufferedWriter(new FileWriter("temp/serialized array functions.XML"))) {
+            FunctionsIO.serializeXml(out, arrayFunction);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try (BufferedReader in = new BufferedReader(new FileReader("temp/serialized array functions.XML"))) {
+            TabulatedFunction deserializedArray = FunctionsIO.deserializeXml(in);
+            assertEquals(arrayFunction.getCount(), deserializedArray.getCount());
+            for (int i = 0; i < arrayFunction.getCount(); i++) {
+                assertEquals(arrayFunction.getX(i), deserializedArray.getX(i));
+                assertEquals(arrayFunction.getY(i), deserializedArray.getY(i));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
