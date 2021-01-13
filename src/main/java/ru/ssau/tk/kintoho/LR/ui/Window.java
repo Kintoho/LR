@@ -11,9 +11,9 @@ public class Window extends JFrame {
     protected static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
 
     public Window() {
-        JFrame window = new JFrame("Calculator");
-        functions = new JMenu("Functions");
-        settings = new JMenu("Settings");
+        JFrame window = new JFrame("Калькулятор");
+        functions = new JMenu("Функции");
+        settings = new JMenu("Настройки");
         JButton calculate = new JButton("Калькулятор");
         JMenuBar bar = new JMenuBar();
         bar.add(functions);
@@ -50,8 +50,8 @@ public class Window extends JFrame {
     }
 
     private JMenu settingsMenu() {
-        JMenu settings = new JMenu("Setting");
-        JMenuItem open = new JMenuItem("Open");
+        JMenu settings = new JMenu("Настройки");
+        JMenuItem open = new JMenuItem("Открыть");
         settings.add(open);
         open.addActionListener(e -> {
             SettingMenu settings1 = new SettingMenu();
@@ -62,8 +62,8 @@ public class Window extends JFrame {
     }
 
     private JMenu createMathFunction() {
-        JMenu functions = new JMenu("MathFunctions");
-        JMenuItem open = new JMenuItem("Open");
+        JMenu functions = new JMenu("Математические функции");
+        JMenuItem open = new JMenuItem("Открыть");
         functions.add(open);
         open.addActionListener(e -> {
             MathFunctions open1 = new MathFunctions(factory);
@@ -73,8 +73,8 @@ public class Window extends JFrame {
     }
 
     private JMenu createTabulatedFunction() {
-        JMenu functions = new JMenu("TabulatedFunction");
-        JMenuItem itemCreate = new JMenuItem("Create");
+        JMenu functions = new JMenu("Табулированная функция");
+        JMenuItem itemCreate = new JMenuItem("Создать");
         functions.add(itemCreate);
         itemCreate.addActionListener(e -> {
             TabulatedFunctionWindow tabulatedFunction = new TabulatedFunctionWindow(factory);

@@ -1,6 +1,8 @@
 package ru.ssau.tk.kintoho.LR.ui;
 
 import ru.ssau.tk.kintoho.LR.functions.*;
+import ru.ssau.tk.kintoho.LR.functions.factory.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.kintoho.LR.functions.factory.TabulatedFunctionFactory;
 import ru.ssau.tk.kintoho.LR.operations.*;
 import ru.ssau.tk.kintoho.LR.io.FunctionsIO;
 
@@ -31,6 +33,7 @@ public class DifferentialWindow extends JDialog {
     private final TabulatedDifferentialOperator differentialOperator;
     private TabulatedFunction functionResult;
     private TabulatedFunction firstFunction;
+    private final TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
 
     protected DifferentialWindow() {
         super();
@@ -44,7 +47,6 @@ public class DifferentialWindow extends JDialog {
         CreateFunc.checkBoxSave.setVisible(false);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableResult.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        setVisible(true);
     }
 
     private void addButtonListeners() {
@@ -60,11 +62,24 @@ public class DifferentialWindow extends JDialog {
             yValuesResult.clear();
             if (resultDialog == 1) {
                 new CreateFunc(function -> firstFunction = function);
+                for (int i = 0; i < firstFunction.getCount(); i++) {
+                    xValues.add(i, String.valueOf(firstFunction.getX(i)));
+                    yValues.add(i, String.valueOf(firstFunction.getY(i)));
+                    tableModel.fireTableDataChanged();
+                }
             }
-            for (int i = 0; i < firstFunction.getCount(); i++) {
-                xValues.add(i, String.valueOf(firstFunction.getX(i)));
-                yValues.add(i, String.valueOf(firstFunction.getY(i)));
-                tableModel.fireTableDataChanged();
+            if (resultDialog == 0){
+                xValues.clear();
+                yValues.clear();
+                TabulatedFunctionWindow table = new TabulatedFunctionWindow(factory);
+                table.setModalityType(JDialog.DEFAULT_MODALITY_TYPE);
+                table.setVisible(true);
+                for (int i = 0; i < table.getCount(); i++) {
+                    xValues.add(table.getXValues().get(i));
+                    yValues.add(table.getYValues().get(i));
+                    tableModel.fireTableDataChanged();
+                }
+                firstFunction = table.getFunction();
             }
         });
         button.addActionListener(e -> {

@@ -105,7 +105,7 @@ public class CreateFunc extends JDialog {
     }
 
     private JComboBox<String> showComboBox() {
-        functionMap.put("Единичная функция", new SqrFunction());
+        functionMap.put("Единичная функция", new UnitFunction());
         functionMap.put("Квадратичная функция", new SqrFunction());
         functionMap.put("Модуль", new AbsoluteValueFunction());
         functionMap.put("Нулевая функция", new ZeroFunction());
