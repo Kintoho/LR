@@ -40,13 +40,14 @@ public class DifferentialWindow extends JDialog {
         getContentPane().setLayout(new FlowLayout());
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setModal(true);
-        setBounds(100, 100, 800, 700);
+        setBounds(100, 100, 800, 400);
         differentialOperator = new TabulatedDifferentialOperator(Window.factory);
         compose();
         addButtonListeners();
         CreateFunc.checkBoxSave.setVisible(false);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableResult.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        setLocationRelativeTo(null);
     }
 
     private void addButtonListeners() {
@@ -98,7 +99,7 @@ public class DifferentialWindow extends JDialog {
         buttonSave.addActionListener(e -> {
             int returnVal = save.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                String fileName = save.getSelectedFile() + "bin";
+                String fileName = save.getSelectedFile() + ".bin";
                 int flag = 1;
                 File file = new File(fileName);
                 if (file.exists()) {
@@ -129,7 +130,7 @@ public class DifferentialWindow extends JDialog {
         buttonResult.addActionListener(e -> {
             int returnVal = save.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                String fileName = save.getSelectedFile() + "bin";
+                String fileName = save.getSelectedFile() + ".bin";
                 int flag = 1;
                 File file = new File(fileName);
                 if (file.exists()) {

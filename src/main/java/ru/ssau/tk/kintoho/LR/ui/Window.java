@@ -15,14 +15,13 @@ public class Window extends JFrame {
         functions = new JMenu("Функции");
         settings = new JMenu("Настройки");
         JButton calculate = new JButton("Калькулятор");
+        JButton diff = new JButton("Дифференцировать");
         JMenuBar bar = new JMenuBar();
         bar.add(functions);
         bar.add(settings);
         functions.add(createMathFunction());
         functions.add(createTabulatedFunction());
         settings.add(settingsMenu());
-        JButton diff = new JButton("Дифференцировать");
-        add(diff);
         diff.setSize(50, 50);
         window.add(diff);
         calculate.setSize(50, 50);

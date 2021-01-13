@@ -23,30 +23,13 @@ public class Calculator extends JDialog {
     private final ArrayList<String> yValues2 = new ArrayList<>();
     private final ArrayList<String> xValuesResult = new ArrayList<>();
     private final ArrayList<String> yValuesResult = new ArrayList<>();
-    private final AbstractTableModel tableModel_1 = new TableModel(xValues1, yValues1){
-        private static final int Y_COLUMN_NUMBER = 2;
-        @Override
-        public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return columnIndex == Y_COLUMN_NUMBER;
-        }
-    };
+    private final AbstractTableModel tableModel_1 = new TableModel(xValues1, yValues1);
     private final JTable table_1 = new JTable(tableModel_1);
     private TabulatedFunction function1;
-    private final AbstractTableModel tableModel_2 = new TableModel(xValues2, yValues2){
-        private static final int Y_COLUMN_NUMBER = 2;
-        @Override
-        public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return columnIndex == Y_COLUMN_NUMBER;
-        }
-    };
+    private final AbstractTableModel tableModel_2 = new TableModel(xValues2, yValues2);
     private final JTable table_2 = new JTable(tableModel_2);
     private TabulatedFunction function2;
-    private final AbstractTableModel result = new TableModel(xValuesResult, yValuesResult){
-        @Override
-        public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return false;
-        }
-    };
+    private final AbstractTableModel result = new TableModel(xValuesResult, yValuesResult);
     private final JTable resultTable = new JTable(result);
     private TabulatedFunction functionResult;
     private TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
@@ -89,7 +72,7 @@ public class Calculator extends JDialog {
         JScrollPane tableScroll_2 = new JScrollPane(table_2);
         JScrollPane tableScrollResult = new JScrollPane(resultTable);
         setLocationRelativeTo(null);
-        
+
         JButton create1 = new JButton("Создать");
         create1.addActionListener(e -> {
             xValues1.clear();
@@ -262,10 +245,9 @@ public class Calculator extends JDialog {
             }
             if (table_1.getRowCount() != table_2.getRowCount()) {
                 JOptionPane.showMessageDialog(calculator, "Разные функции \n " + "... не делай так");
-            } else if(table_1.getRowCount() == 0){
+            } else if (table_1.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(calculator, "Создайте функции");
-            }
-            else if (exc != 0) {
+            } else if (exc != 0) {
                 OperationsFunctions operator = new OperationsFunctions(table_1.getRowCount(), factory, function1, function2);
                 operator.setVisible(true);
                 for (int i = 0; i < table_1.getRowCount(); i++) {
@@ -371,5 +353,5 @@ public class Calculator extends JDialog {
                         )
                 )
         );
-      }
     }
+}

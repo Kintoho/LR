@@ -102,6 +102,7 @@ public class CreateFunc extends JDialog {
                 .addComponent(comboBoxFunctions)
                 .addComponent(checkBoxSave)
                 .addComponent(buttonCreateFunction));
+        setLocationRelativeTo(null);
     }
 
     private JComboBox<String> showComboBox() {

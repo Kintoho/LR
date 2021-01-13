@@ -38,6 +38,7 @@ public class MathFunctions extends JDialog {
         getContentPane().add(functionComboBox);
         compose();
         addButtonListeners(factory);
+        setLocationRelativeTo(null);
     }
 
     private void addButtonListeners(TabulatedFunctionFactory factory) {
