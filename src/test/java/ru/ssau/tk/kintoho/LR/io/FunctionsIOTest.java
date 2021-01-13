@@ -88,7 +88,7 @@ public class FunctionsIOTest {
     }
 
     @Test
-    public void testSerializeDeserializeXml(){
+    public void testSerializeDeserializeXml() {
         try (BufferedWriter out = new BufferedWriter(new FileWriter("temp/serialized array functions.XML"))) {
             FunctionsIO.serializeXml(out, arrayFunction);
         } catch (IOException e) {
@@ -100,6 +100,30 @@ public class FunctionsIOTest {
             for (int i = 0; i < arrayFunction.getCount(); i++) {
                 assertEquals(arrayFunction.getX(i), deserializedArray.getX(i));
                 assertEquals(arrayFunction.getY(i), deserializedArray.getY(i));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testJson() {
+        ArrayTabulatedFunction arrayFunction = new ArrayTabulatedFunction(xValues, yValues);
+
+        try (BufferedWriter out = new BufferedWriter(new FileWriter("temp/serialized array functions.Json"))) {
+            FunctionsIO.serializeJson(out, arrayFunction);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (BufferedReader in = new BufferedReader(new FileReader("temp/serialized array functions.Json"))) {
+            TabulatedFunction resultArray = FunctionsIO.deserializeJson(in);
+
+            assertEquals(arrayFunction.getCount(), resultArray.getCount());
+
+            for (int i = 0; i < arrayFunction.getCount(); i++) {
+                assertEquals(arrayFunction.getX(i), resultArray.getX(i));
+                assertEquals(arrayFunction.getY(i), resultArray.getY(i));
             }
         } catch (IOException e) {
             e.printStackTrace();

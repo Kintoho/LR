@@ -20,8 +20,8 @@ public class CreateFunc extends JDialog {
     private final JButton buttonCreateFunction = new JButton("Создать функцию");
     public TabulatedFunction function;
     protected static JCheckBox checkBoxSave = new JCheckBox("Сохранить функцию");
-    Map<String, MathFunction> functionMap = new HashMap<>();
-    JComboBox<String> comboBoxFunctions = showComboBox();
+    private final Map<String, MathFunction> functionMap = new HashMap<>();
+    private final JComboBox<String> comboBoxFunctions = showComboBox();
 
     protected CreateFunc(Consumer<? super TabulatedFunction> callback) {
         super();

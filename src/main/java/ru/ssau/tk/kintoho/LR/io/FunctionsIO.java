@@ -5,6 +5,7 @@ import ru.ssau.tk.kintoho.LR.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.kintoho.LR.functions.Point;
 import ru.ssau.tk.kintoho.LR.functions.TabulatedFunction;
 import ru.ssau.tk.kintoho.LR.functions.factory.TabulatedFunctionFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.*;
 import java.text.NumberFormat;
@@ -85,8 +86,18 @@ public final class FunctionsIO {
         writer.flush();
     }
 
-    public static ArrayTabulatedFunction deserializeXml(BufferedReader reader){
+    public static ArrayTabulatedFunction deserializeXml(BufferedReader reader) {
         XStream xmlReader = new XStream();
         return (ArrayTabulatedFunction) xmlReader.fromXML(reader);
+    }
+
+    public static void serializeJson(BufferedWriter writer, ArrayTabulatedFunction function) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        writer.write(objectMapper.writeValueAsString(function));
+    }
+
+    public static ArrayTabulatedFunction deserializeJson(BufferedReader reader) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readerFor(ArrayTabulatedFunction.class).readValue(reader);
     }
 }

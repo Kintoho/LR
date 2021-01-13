@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Window extends JFrame {
-    JMenu settings, functions;
     protected static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
 
     public Window() {
@@ -19,8 +18,8 @@ public class Window extends JFrame {
                 g.drawImage(image, 0, 0, null);
             }
         });
-        functions = new JMenu("Функции");
-        settings = new JMenu("Настройки");
+        JMenu functions = new JMenu("Функции");
+        JMenu settings = new JMenu("Настройки");
         JButton calculate = new JButton("Калькулятор");
         JButton diff = new JButton("Дифференцировать");
         JMenuBar bar = new JMenuBar();

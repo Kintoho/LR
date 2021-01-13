@@ -21,7 +21,7 @@ public class TabulatedFunctionWindow extends JDialog {
     private final JButton inputButton = new JButton("Ввести");
     private final JButton createButton = new JButton("Создать таблицу");
     private TabulatedFunction function;
-    int err = 1;
+    private int err = 1;
 
     public TabulatedFunctionWindow(TabulatedFunctionFactory factory) {
         setModal(true);

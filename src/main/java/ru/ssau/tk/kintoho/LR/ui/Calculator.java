@@ -14,9 +14,6 @@ import java.util.ArrayList;
 
 public class Calculator extends JDialog {
 
-    JMenu menuSettings = new JMenu("Выбор фабрики");
-    JMenuBar menuBar = new JMenuBar();
-
     private final ArrayList<String> xValues1 = new ArrayList<>();
     private final ArrayList<String> yValues1 = new ArrayList<>();
     private final ArrayList<String> xValues2 = new ArrayList<>();
@@ -51,6 +48,8 @@ public class Calculator extends JDialog {
     public Calculator() {
         JFrame calculator = new JFrame();
         setModal(true);
+        JMenu menuSettings = new JMenu("Выбор фабрики");
+        JMenuBar menuBar = new JMenuBar();
         menuBar.add(menuSettings);
         menuSettings.add(settings());
         setJMenuBar(menuBar);

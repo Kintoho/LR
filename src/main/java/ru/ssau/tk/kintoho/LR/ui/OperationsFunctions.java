@@ -12,9 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OperationsFunctions extends JDialog {
-    Map<String, TabulatedFunction> map = new HashMap<>();
-    TabulatedFunctionOperationService service;
-    TabulatedFunction func3;
+    private final Map<String, TabulatedFunction> map = new HashMap<>();
+    protected  TabulatedFunctionOperationService service;
+    protected TabulatedFunction func3;
     private final ArrayList<String> stringsX3;
     private final ArrayList<String> stringsY3;
 

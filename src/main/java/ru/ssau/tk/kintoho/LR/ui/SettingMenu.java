@@ -9,8 +9,8 @@ import java.awt.*;
 
 public class SettingMenu extends JDialog {
     private TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
-    JRadioButton array;
-    JRadioButton list;
+    private final JRadioButton array;
+    private final JRadioButton list;
 
     public SettingMenu() {
         super();
