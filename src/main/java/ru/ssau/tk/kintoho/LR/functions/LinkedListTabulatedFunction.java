@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Iterable<Point>, Serializable, Insertable {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Iterable<Point>, Serializable, Insertable, Removable {
     @Serial
     private static final long serialVersionUID = -1485518412020327747L;
     private Node head;
@@ -230,7 +230,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     @Override
-    public void insert(double x, double y){
+    public void insert(double x, double y) {
         if (count == 0) {
             addNode(x, y);
         } else if (indexOfX(x) != -1) {
@@ -262,6 +262,21 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             }
         }
         count++;
+    }
+
+    @Override
+    public void remove(int index) {
+        if (count == 2) {
+            throw new UnsupportedOperationException("Invalid length");
+        }
+        Node deletedNode = getNode(index);
+        if (index == 0) {
+            head = deletedNode.next;
+            head.prev = deletedNode.prev;
+        }
+        deletedNode.prev.next = deletedNode.next;
+        deletedNode.next.prev = deletedNode.prev;
+        count--;
     }
 }
 

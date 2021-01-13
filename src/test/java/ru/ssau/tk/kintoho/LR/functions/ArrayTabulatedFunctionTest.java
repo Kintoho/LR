@@ -197,4 +197,32 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(j, 5, DELTA);
         assertThrows(NoSuchElementException.class, iterator::next);
     }
+
+    @Test
+    public void testInsert() {
+        double[] xValues = new double[]{0., 1., 2., 3., 4., 5., 6., 7., 8., 9., 10.};
+        double[] yValues = new double[]{0., 2., 4., 6., 8., 10., 12., 14., 16., 18., 20.};
+        ArrayTabulatedFunction testArrays = new ArrayTabulatedFunction(xValues, yValues);
+
+        for (int i = 0; i < testArrays.getCount(); i++) {
+            assertEquals(testArrays.getX(i), i, DELTA);
+            assertEquals(testArrays.getY(i), 2 * i, DELTA);
+        }
+        testArrays.insert(-1., -2.);
+        for (int i = 0; i < testArrays.getCount(); i++) {
+            assertEquals(testArrays.getX(i), i - 1, DELTA);
+            assertEquals(testArrays.getY(i), 2 * (i - 1), DELTA);
+        }
+
+        testArrays.insert(2., 5.);
+        assertEquals(testArrays.getX(0), -1., DELTA);
+        assertEquals(testArrays.getY(0), -2., DELTA);
+        testArrays.insert(8, 11.);
+        assertEquals(testArrays.getX(7), 6, DELTA);
+        assertEquals(testArrays.getY(7), 12., DELTA);
+        testArrays.insert(7., 15.);
+        assertEquals(testArrays.getX(8), 7., DELTA);
+        assertEquals(testArrays.getY(8), 15., DELTA);
+        assertEquals(testArrays.getCount(), 12);
+    }
 }

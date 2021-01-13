@@ -226,4 +226,16 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(testInsertLinkedList.getX(5), 4, DELTA);
         assertEquals(testInsertLinkedList.getY(5), 5, DELTA);
     }
+
+    @Test
+    public void testRemove() {
+        LinkedListTabulatedFunction testList = sqr();
+        testList.remove(0);
+        testList.remove(2);
+        assertEquals(testList.getX(0), 2., DELTA);
+        assertEquals(testList.getX(1), 3., DELTA);
+        assertEquals(testList.getX(2), 5., DELTA);
+
+        assertEquals(testList.getCount(), 5, DELTA);
+    }
 }

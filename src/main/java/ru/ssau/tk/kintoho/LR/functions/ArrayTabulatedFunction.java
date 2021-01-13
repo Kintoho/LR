@@ -8,12 +8,12 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Serializable {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Serializable, Insertable {
     @Serial
     private static final long serialVersionUID = -3461243627333514321L;
-    private final double[] xValues;
-    private final double[] yValues;
-    private final int count;
+    private double[] xValues;
+    private double[] yValues;
+    private int count;
 
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
         if (xValues.length < 2 & yValues.length < 2) {
@@ -150,5 +150,33 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
             }
         };
     }
+
+    @Override
+    public void insert(double x, double y) {
+        int i = indexOfX(x);
+        if (i != -1) {
+            setY(i, y);
+        } else {
+            double[] xValuesAnother = new double[count + 1];
+            double[] yValuesAnother = new double[count + 1];
+            if (x < leftBound()) {
+                xValuesAnother[0] = x;
+                yValuesAnother[0] = y;
+                System.arraycopy(xValues, 0, xValuesAnother, 1, count);
+                System.arraycopy(yValues, 0, yValuesAnother, 1, count);
+            } else {
+                System.arraycopy(xValues, 0, xValuesAnother, 0, floorIndexOfX(x) + 1);
+                System.arraycopy(yValues, 0, yValuesAnother, 0, floorIndexOfX(x) + 1);
+                xValuesAnother[floorIndexOfX(x) + 1] = x;
+                yValuesAnother[floorIndexOfX(x) + 1] = y;
+                System.arraycopy(xValues, floorIndexOfX(x) + 1, xValuesAnother, floorIndexOfX(x) + 2, count - floorIndexOfX(x) - 1);
+                System.arraycopy(yValues, floorIndexOfX(x) + 1, yValuesAnother, floorIndexOfX(x) + 2, count - floorIndexOfX(x) - 1);
+            }
+            this.xValues = xValuesAnother;
+            this.yValues = yValuesAnother;
+            count++;
+        }
+    }
+
 }
 
