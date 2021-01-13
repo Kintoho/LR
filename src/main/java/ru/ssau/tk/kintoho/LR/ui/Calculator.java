@@ -72,7 +72,7 @@ public class Calculator extends JDialog {
         JScrollPane tableScroll_2 = new JScrollPane(table_2);
         JScrollPane tableScrollResult = new JScrollPane(resultTable);
         setLocationRelativeTo(null);
-
+        
         JButton create1 = new JButton("Создать");
         create1.addActionListener(e -> {
             xValues1.clear();
