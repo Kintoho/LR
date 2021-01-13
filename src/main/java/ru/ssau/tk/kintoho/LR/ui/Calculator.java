@@ -247,7 +247,7 @@ public class Calculator extends JDialog {
             } else if (table_1.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(calculator, "Создайте функции");
             } else if (exc != 0) {
-                OperationsFunctions operator = new OperationsFunctions(table_1.getRowCount(), factory, function1, function2);
+                OperationsFunctions operator = new OperationsFunctions(factory, function1, function2);
                 operator.setVisible(true);
                 for (int i = 0; i < table_1.getRowCount(); i++) {
                     xValuesResult.add(String.valueOf(operator.func3.getX(i)));
