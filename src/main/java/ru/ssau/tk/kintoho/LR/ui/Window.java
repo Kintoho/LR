@@ -12,6 +12,13 @@ public class Window extends JFrame {
 
     public Window() {
         JFrame window = new JFrame("Калькулятор");
+        Image image = new ImageIcon("Хабиб.jpeg").getImage();
+        window.setContentPane(new JPanel(new BorderLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.drawImage(image, 0, 0, null);
+            }
+        });
         functions = new JMenu("Функции");
         settings = new JMenu("Настройки");
         JButton calculate = new JButton("Калькулятор");
@@ -28,7 +35,7 @@ public class Window extends JFrame {
         window.add(calculate);
         window.setLayout(new FlowLayout());
         window.setJMenuBar(bar);
-        window.setSize(300, 300);
+        window.setSize(600, 300);
         window.setVisible(true);
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
