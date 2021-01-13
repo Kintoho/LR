@@ -21,6 +21,10 @@ public class Window extends JFrame {
         functions.add(createMathFunction());
         functions.add(createTabulatedFunction());
         settings.add(settingsMenu());
+        JButton diff = new JButton("Дифференцировать");
+        add(diff);
+        diff.setSize(50, 50);
+        window.add(diff);
         calculate.setSize(50, 50);
         window.add(calculate);
         window.setLayout(new FlowLayout());
@@ -33,6 +37,10 @@ public class Window extends JFrame {
             Calculator calculator = new Calculator();
             calculator.setModalityType(JDialog.DEFAULT_MODALITY_TYPE);
             calculator.setVisible(true);
+        });
+        diff.addActionListener(e -> {
+            DifferentialWindow differentialOperator = new DifferentialWindow();
+            differentialOperator.setVisible(true);
         });
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
