@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Serializable, Insertable {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Serializable, Insertable, Removable {
     @Serial
     private static final long serialVersionUID = -3461243627333514321L;
     private double[] xValues;
@@ -178,5 +178,21 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         }
     }
 
+    @Override
+    public void remove(int index){
+        if (count <= 2) {
+            throw new IllegalArgumentException();
+        }
+        double[] xTempValues = new double[count - 1];
+        double[] yTempValues = new double[count - 1];
+
+        System.arraycopy(xValues, 0, xTempValues, 0, index);
+        System.arraycopy(yValues, 0, yTempValues, 0, index);
+        System.arraycopy(xValues, index + 1, xTempValues, index, count - index - 1);
+        System.arraycopy(yValues, index + 1, yTempValues, index, count - index - 1);
+        this.xValues = xTempValues;
+        this.yValues = yTempValues;
+        count--;
+    }
 }
 
