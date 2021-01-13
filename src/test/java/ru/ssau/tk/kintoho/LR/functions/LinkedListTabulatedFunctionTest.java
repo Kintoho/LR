@@ -3,13 +3,11 @@ package ru.ssau.tk.kintoho.LR.functions;
 import org.testng.annotations.Test;
 import ru.ssau.tk.kintoho.LR.exceptions.InterpolationException;
 
-import static org.testng.Assert.assertEquals;
-
-import static org.testng.Assert.assertThrows;
-
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import java.util.Iterator;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertThrows;
 
 public class LinkedListTabulatedFunctionTest {
     private final static double DELTA = 0.001;
@@ -200,4 +198,32 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(j, 7, DELTA);
     }
 
+    @Test
+    public void testInsert() {
+        double[] XValues = new double[]{-1, 3, 4};
+        double[] YValues = new double[]{-1, 2, 5};
+        LinkedListTabulatedFunction testInsertLinkedList = new LinkedListTabulatedFunction(XValues, YValues);
+        testInsertLinkedList.insert(0, 5);
+        testInsertLinkedList.insert(1, 6);
+        testInsertLinkedList.insert(2, 7);
+        testInsertLinkedList.insert(3, 8);
+
+        assertEquals(testInsertLinkedList.getX(0), 0, DELTA);
+        assertEquals(testInsertLinkedList.getY(0), 5, DELTA);
+
+        assertEquals(testInsertLinkedList.getX(1), -1, DELTA);
+        assertEquals(testInsertLinkedList.getY(1), -1, DELTA);
+
+        assertEquals(testInsertLinkedList.getX(2), 1, DELTA);
+        assertEquals(testInsertLinkedList.getY(2), 6, DELTA);
+
+        assertEquals(testInsertLinkedList.getX(3), 2, DELTA);
+        assertEquals(testInsertLinkedList.getY(3), 7, DELTA);
+
+        assertEquals(testInsertLinkedList.getX(4), 3, DELTA);
+        assertEquals(testInsertLinkedList.getY(4), 8, DELTA);
+
+        assertEquals(testInsertLinkedList.getX(5), 4, DELTA);
+        assertEquals(testInsertLinkedList.getY(5), 5, DELTA);
+    }
 }

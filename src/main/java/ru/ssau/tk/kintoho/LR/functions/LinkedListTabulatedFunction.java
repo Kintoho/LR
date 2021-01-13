@@ -1,16 +1,14 @@
 package ru.ssau.tk.kintoho.LR.functions;
 
 
+import ru.ssau.tk.kintoho.LR.exceptions.InterpolationException;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Iterator;
-
-
 import java.util.NoSuchElementException;
 
-import ru.ssau.tk.kintoho.LR.exceptions.InterpolationException;
-
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Iterable<Point>, Serializable {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Iterable<Point>, Serializable, Insertable {
     @Serial
     private static final long serialVersionUID = -1485518412020327747L;
     private Node head;
@@ -231,7 +229,40 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         };
     }
 
+    @Override
+    public void insert(double x, double y){
+        if (count == 0) {
+            addNode(x, y);
+        } else if (indexOfX(x) != -1) {
+            setY(indexOfX(x), y);
+        } else {
+            int index = floorIndexOfX(x);
+            Node newNode = new Node();
+            newNode.x = x;
+            newNode.y = y;
 
+            if (index == 0) {
+                newNode.next = head;
+                newNode.prev = head.prev;
+                head.prev.next = newNode;
+                head = newNode;
+            } else {
+                if (index == count) {
+                    newNode.next = head;
+                    newNode.prev = head.prev;
+                    head.prev.next = newNode;
+                    head.prev = newNode;
+                } else {
+                    Node previous = getNode(index);
+                    newNode.next = previous.next;
+                    newNode.prev = previous;
+                    previous.next = newNode;
+                    newNode.next.prev = newNode;
+                }
+            }
+        }
+        count++;
+    }
 }
 
 
