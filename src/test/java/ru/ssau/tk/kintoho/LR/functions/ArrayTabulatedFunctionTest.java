@@ -225,4 +225,23 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(testArrays.getY(8), 15., DELTA);
         assertEquals(testArrays.getCount(), 12);
     }
+
+    @Test
+    public void testRemove(){
+        ArrayTabulatedFunction testArray = sqr();
+        testArray.remove(6);
+        testArray.remove(2);
+        testArray.remove(0);
+        assertEquals(testArray.getX(0), 2, DELTA);
+        assertEquals(testArray.getX(1), 4, DELTA);
+        assertEquals(testArray.getX(2), 5, DELTA);
+        assertEquals(testArray.getX(3), 6, DELTA);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            double[] XValues = new double[]{1, 2};
+            double[] YValues = new double[]{3, 4};
+            ArrayTabulatedFunction testRemove = new ArrayTabulatedFunction(XValues, YValues);
+            testRemove.remove(1);
+        });
+    }
 }
