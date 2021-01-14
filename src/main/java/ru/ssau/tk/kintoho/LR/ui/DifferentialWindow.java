@@ -17,11 +17,13 @@ public class DifferentialWindow extends JDialog {
 
     private final List<String> xValuesResult = new ArrayList<>(0);
     private final List<String> yValuesResult = new ArrayList<>(0);
-    private final AbstractTableModel tableModelResult = new TableModelDiff(xValuesResult, yValuesResult, false);
+    private TabulatedFunction functionResult;
+    private TabulatedFunction firstFunction;
+    private final AbstractTableModel tableModelResult = new TableModelDiff(xValuesResult, yValuesResult, false, functionResult);
     private final JTable tableResult = new JTable(tableModelResult);
-    private final java.util.List<String> xValues = new ArrayList<>();
+    private final List<String> xValues = new ArrayList<>();
     private final List<String> yValues = new ArrayList<>();
-    private final AbstractTableModel tableModel = new TableModelDiff(xValues, yValues, true);
+    private final AbstractTableModel tableModel = new TableModelDiff(xValues, yValues, true, firstFunction);
     private final JTable table = new JTable(tableModel);
     private final JButton button = new JButton("Вычислить");
     private final JButton buttonResult = new JButton("Сохранить результат");
@@ -31,8 +33,7 @@ public class DifferentialWindow extends JDialog {
     private final JFileChooser save = new JFileChooser();
     private final JFileChooser downloadChooser = new JFileChooser();
     private final TabulatedDifferentialOperator differentialOperator;
-    private TabulatedFunction functionResult;
-    private TabulatedFunction firstFunction;
+
     private final TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
 
     protected DifferentialWindow() {
