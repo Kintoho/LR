@@ -1,7 +1,5 @@
 package ru.ssau.tk.kintoho.LR.ui;
 
-import ru.ssau.tk.kintoho.LR.functions.TabulatedFunction;
-
 import javax.swing.table.AbstractTableModel;
 import java.io.Serial;
 import java.util.List;
@@ -16,14 +14,12 @@ public class TableModelDiff extends AbstractTableModel {
     private final List<String> xValues;
     private final List<String> yValues;
     private final boolean editable;
-    private TabulatedFunction function;
 
     protected TableModelDiff(List<String> xValues, List<String> yValues, boolean editable) {
         this.xValues = xValues;
         this.yValues = yValues;
         this.editable = editable;
     }
-
 
     @Override
     public int getRowCount() {
@@ -47,7 +43,6 @@ public class TableModelDiff extends AbstractTableModel {
         }
         throw new UnsupportedOperationException();
     }
-
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
@@ -76,14 +71,6 @@ public class TableModelDiff extends AbstractTableModel {
             case Y_COLUMN_NUMBER -> "Y: ";
             default -> super.getColumnName(column);
         };
-    }
-
-    public TabulatedFunction getFunction() {
-        return function;
-    }
-
-    public void setFunction(TabulatedFunction function) {
-        this.function = function;
     }
 }
 

@@ -20,7 +20,7 @@ public class Calculator extends JDialog {
     private final List<String> yValues2 = new ArrayList<>();
     private final List<String> xValuesResult = new ArrayList<>();
     private final List<String> yValuesResult = new ArrayList<>();
-    private final AbstractTableModel tableModel_1 = new TableModel(xValues1, yValues1) {
+    private final AbstractTableModel tableModel1 = new TableModel(xValues1, yValues1) {
         @Serial
         private static final long serialVersionUID = 6951015012091406096L;
         private static final int Y_COLUMN_NUMBER = 2;
@@ -30,9 +30,9 @@ public class Calculator extends JDialog {
             return columnIndex == Y_COLUMN_NUMBER;
         }
     };
-    private final JTable table_1 = new JTable(tableModel_1);
+    private final JTable table1 = new JTable(tableModel1);
     private TabulatedFunction function1;
-    private final AbstractTableModel tableModel_2 = new TableModel(xValues2, yValues2) {
+    private final AbstractTableModel tableModel2 = new TableModel(xValues2, yValues2) {
         @Serial
         private static final long serialVersionUID = 3287465942502781647L;
         private static final int Y_COLUMN_NUMBER = 2;
@@ -42,7 +42,7 @@ public class Calculator extends JDialog {
             return columnIndex == Y_COLUMN_NUMBER;
         }
     };
-    private final JTable table_2 = new JTable(tableModel_2);
+    private final JTable table2 = new JTable(tableModel2);
     private TabulatedFunction function2;
     private final AbstractTableModel result = new TableModel(xValuesResult, yValuesResult) {
         @Serial
@@ -71,11 +71,11 @@ public class Calculator extends JDialog {
         fileSave.addChoosableFileFilter(new FileNameExtensionFilter("Bin files", "bin"));
         fileSave.setAcceptAllFileFilterUsed(false);
         setSize(new Dimension(1000, 500));
-        table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table_2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         resultTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane tableScroll_1 = new JScrollPane(table_1);
-        JScrollPane tableScroll_2 = new JScrollPane(table_2);
+        JScrollPane tableScroll_1 = new JScrollPane(table1);
+        JScrollPane tableScroll_2 = new JScrollPane(table2);
         JScrollPane tableScrollResult = new JScrollPane(resultTable);
         setLocationRelativeTo(null);
 
@@ -89,7 +89,7 @@ public class Calculator extends JDialog {
             for (int i = 0; i < table1.getCount(); i++) {
                 xValues1.add(table1.getXValues().get(i));
                 yValues1.add(table1.getYValues().get(i));
-                tableModel_1.fireTableDataChanged();
+                tableModel1.fireTableDataChanged();
             }
             function1 = table1.getFunction();
         });
@@ -104,7 +104,7 @@ public class Calculator extends JDialog {
             for (int i = 0; i < table.getCount(); i++) {
                 xValues2.add(table.getXValues().get(i));
                 yValues2.add(table.getYValues().get(i));
-                tableModel_2.fireTableDataChanged();
+                tableModel2.fireTableDataChanged();
             }
             function2 = table.getFunction();
         });
@@ -121,11 +121,11 @@ public class Calculator extends JDialog {
                     for (int i = 0; i < function.getCount(); i++) {
                         xValues1.add(i, String.valueOf(function.getX(i)));
                         yValues1.add(i, String.valueOf(function.getY(i)));
-                        tableModel_1.fireTableDataChanged();
+                        tableModel1.fireTableDataChanged();
                     }
                     double[] xValues = new double[function.getCount()];
                     double[] yValues = new double[function.getCount()];
-                    for (int i = 0; i < table_1.getRowCount(); i++) {
+                    for (int i = 0; i < table1.getRowCount(); i++) {
                         xValues[i] = Double.parseDouble(xValues1.get(i));
                         yValues[i] = Double.parseDouble(yValues1.get(i));
                     }
@@ -150,11 +150,11 @@ public class Calculator extends JDialog {
                     for (int i = 0; i < function.getCount(); i++) {
                         xValues2.add(i, String.valueOf(function.getX(i)));
                         yValues2.add(i, String.valueOf(function.getY(i)));
-                        tableModel_2.fireTableDataChanged();
+                        tableModel2.fireTableDataChanged();
                     }
                     double[] xValues = new double[function.getCount()];
                     double[] yValues = new double[function.getCount()];
-                    for (int i = 0; i < table_1.getRowCount(); i++) {
+                    for (int i = 0; i < table1.getRowCount(); i++) {
                         xValues[i] = Double.parseDouble(xValues2.get(i));
                         yValues[i] = Double.parseDouble(yValues2.get(i));
                     }
@@ -168,17 +168,17 @@ public class Calculator extends JDialog {
 
         JButton save1 = new JButton("Сохранить");
         save1.addActionListener(e -> {
-            if (table_1.getRowCount() == 0) {
+            if (table1.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(calculator, "Создайте функцию");
             } else {
                 fileSave.showSaveDialog(calculator);
                 File file = fileSave.getSelectedFile();
                 if (file != null) {
-                    double[] xValues = new double[table_1.getRowCount()];
-                    double[] yValues = new double[table_1.getRowCount()];
-                    for (int i = 0; i < table_1.getRowCount(); i++) {
-                        xValues[i] = Double.parseDouble(table_1.getValueAt(i, 1).toString());
-                        yValues[i] = Double.parseDouble(table_1.getValueAt(i, 2).toString());
+                    double[] xValues = new double[table1.getRowCount()];
+                    double[] yValues = new double[table1.getRowCount()];
+                    for (int i = 0; i < table1.getRowCount(); i++) {
+                        xValues[i] = Double.parseDouble(table1.getValueAt(i, 1).toString());
+                        yValues[i] = Double.parseDouble(table1.getValueAt(i, 2).toString());
                     }
                     function1 = factory.create(xValues, yValues);
                     try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
@@ -192,17 +192,17 @@ public class Calculator extends JDialog {
 
         JButton save2 = new JButton("Сохранить");
         save2.addActionListener(e -> {
-            if (table_2.getRowCount() == 0) {
+            if (table2.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(calculator, "Создйте функцию");
             } else {
                 fileSave.showSaveDialog(calculator);
                 File file = fileSave.getSelectedFile();
                 if (file != null) {
-                    double[] xValues = new double[table_2.getRowCount()];
-                    double[] yValues = new double[table_2.getRowCount()];
-                    for (int i = 0; i < table_2.getRowCount(); i++) {
-                        xValues[i] = Double.parseDouble(table_2.getValueAt(i, 1).toString());
-                        yValues[i] = Double.parseDouble(table_2.getValueAt(i, 2).toString());
+                    double[] xValues = new double[table2.getRowCount()];
+                    double[] yValues = new double[table2.getRowCount()];
+                    for (int i = 0; i < table2.getRowCount(); i++) {
+                        xValues[i] = Double.parseDouble(table2.getValueAt(i, 1).toString());
+                        yValues[i] = Double.parseDouble(table2.getValueAt(i, 2).toString());
                     }
                     function2 = factory.create(xValues, yValues);
                     try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
@@ -243,20 +243,20 @@ public class Calculator extends JDialog {
             xValuesResult.clear();
             yValuesResult.clear();
 
-            for (int i = 0; i < table_1.getRowCount() - 1; i++) {
+            for (int i = 0; i < table1.getRowCount() - 1; i++) {
                 if (Double.parseDouble(xValues1.get(i)) != Double.parseDouble(xValues2.get(i))) {
                     JOptionPane.showMessageDialog(calculator, "Разные Х");
                     exc = 0;
                 }
             }
-            if (table_1.getRowCount() != table_2.getRowCount()) {
+            if (table1.getRowCount() != table2.getRowCount()) {
                 JOptionPane.showMessageDialog(calculator, "Разные функции \n " + "... не делай так");
-            } else if (table_1.getRowCount() == 0) {
+            } else if (table1.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(calculator, "Создайте функции");
             } else if (exc != 0) {
                 OperationsFunctions operator = new OperationsFunctions(factory, function1, function2);
                 operator.setVisible(true);
-                for (int i = 0; i < table_1.getRowCount(); i++) {
+                for (int i = 0; i < table1.getRowCount(); i++) {
                     xValuesResult.add(String.valueOf(operator.func3.getX(i)));
                     yValuesResult.add(String.valueOf(operator.func3.getY(i)));
                 }
