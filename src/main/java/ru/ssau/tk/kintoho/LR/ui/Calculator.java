@@ -228,24 +228,24 @@ public class Calculator extends JDialog {
 
         JButton operate = new JButton("Операция");
         operate.addActionListener(e -> {
-            if (function1.getCount() != function2.getCount()) {
-                JOptionPane.showMessageDialog(calculator, "Разные Х");
-                exc = 0;
+            for (int i = 0; i < table1.getRowCount() - 1; i++) {
+                if (function1.getX(i) != function2.getX(i)) {
+                    JOptionPane.showMessageDialog(calculator, "Разные Х");
+                    exc = 0;
+                }
             }
             if (table1.getRowCount() != table2.getRowCount()) {
-                JOptionPane.showMessageDialog(calculator, "Разные функции \n " + "... не делай так");
+                JOptionPane.showMessageDialog(calculator, "Разные функции \n ");
             } else if (table1.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(calculator, "Создайте функции");
             } else if (exc != 0) {
                 OperationsFunctions operator = new OperationsFunctions(factory, function1, function2);
                 operator.setVisible(true);
-                // result.setModalityType(JDialog.DEFAULT_MODALITY_TYPE);
                 result.setVisible(true);
                 functionResult = resultTable.getFunction();
-                resultTable.setFunction(function1);
-                //fileSave.setEnabled(true);
-                System.out.println(operator.func3.toString());
                 functionResult = operator.func3;
+                resultTable.setFunction(functionResult);
+                System.out.println(operator.func3.toString());
                 resultTable.fireTableDataChanged();
             }
         });
