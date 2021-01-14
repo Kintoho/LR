@@ -12,7 +12,10 @@ public class DifferentialWindow extends JDialog {
 
     private TabulatedFunction functionResult;
     private TabulatedFunction firstFunction;
-    private final TableModelTabulated tableModelResult = new TableModelTabulated(functionResult){
+    private final TableModelTabulated tableModelResult = new TableModelTabulated(functionResult) {
+        @Serial
+        private static final long serialVersionUID = 3187267819258444868L;
+
         @Override
         public boolean isCellEditable(int rowIndex, int columnIndex) {
             return false;
@@ -56,7 +59,7 @@ public class DifferentialWindow extends JDialog {
                 tableModel.setFunction(firstFunction);
                 tableModel.fireTableDataChanged();
             }
-            if (resultDialog == 0){
+            if (resultDialog == 0) {
                 TabulatedFunctionWindow table = new TabulatedFunctionWindow(Window.factory);
                 table.setModalityType(JDialog.DEFAULT_MODALITY_TYPE);
                 table.setVisible(true);
