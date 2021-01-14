@@ -17,11 +17,11 @@ public class DifferentialWindow extends JDialog {
     private final List<String> yValuesResult = new ArrayList<>(0);
     private TabulatedFunction functionResult;
     private TabulatedFunction firstFunction;
-    private final AbstractTableModel tableModelResult = new TableModelDiff(xValuesResult, yValuesResult, false);
+    private final AbstractTableModel tableModelResult = new TableModelTabulated(functionResult);
     private final JTable tableResult = new JTable(tableModelResult);
     private final List<String> xValues = new ArrayList<>();
     private final List<String> yValues = new ArrayList<>();
-    private final AbstractTableModel tableModel = new TableModelDiff(xValues, yValues, true);
+    private final AbstractTableModel tableModel = new TableModelTabulated(firstFunction);
     private final JTable table = new JTable(tableModel);
     private final JButton button = new JButton("Вычислить");
     private final JButton buttonResult = new JButton("Сохранить результат");

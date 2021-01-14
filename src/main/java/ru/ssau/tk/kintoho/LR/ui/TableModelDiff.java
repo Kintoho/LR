@@ -24,7 +24,6 @@ public class TableModelDiff extends AbstractTableModel {
         this.editable = editable;
     }
 
-
     @Override
     public int getRowCount() {
         return xValues.size();
