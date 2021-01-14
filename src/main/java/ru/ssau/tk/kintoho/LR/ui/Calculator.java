@@ -20,13 +20,39 @@ public class Calculator extends JDialog {
     private final ArrayList<String> yValues2 = new ArrayList<>();
     private final ArrayList<String> xValuesResult = new ArrayList<>();
     private final ArrayList<String> yValuesResult = new ArrayList<>();
-    private final AbstractTableModel tableModel_1 = new TableModel(xValues1, yValues1);
+    private final AbstractTableModel tableModel_1 = new TableModel(xValues1, yValues1) {
+        @Serial
+        private static final long serialVersionUID = 6951015012091406096L;
+        private static final int Y_COLUMN_NUMBER = 2;
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return columnIndex == Y_COLUMN_NUMBER;
+        }
+    };
     private final JTable table_1 = new JTable(tableModel_1);
     private TabulatedFunction function1;
-    private final AbstractTableModel tableModel_2 = new TableModel(xValues2, yValues2);
+    private final AbstractTableModel tableModel_2 = new TableModel(xValues2, yValues2) {
+        @Serial
+        private static final long serialVersionUID = 3287465942502781647L;
+        private static final int Y_COLUMN_NUMBER = 2;
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return columnIndex == Y_COLUMN_NUMBER;
+        }
+    };
     private final JTable table_2 = new JTable(tableModel_2);
     private TabulatedFunction function2;
-    private final AbstractTableModel result = new TableModel(xValuesResult, yValuesResult);
+    private final AbstractTableModel result = new TableModel(xValuesResult, yValuesResult) {
+        @Serial
+        private static final long serialVersionUID = 4949304988903288847L;
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return false;
+        }
+    };
     private final JTable resultTable = new JTable(result);
     private TabulatedFunction functionResult;
     private TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
