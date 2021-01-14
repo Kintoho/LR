@@ -41,7 +41,6 @@ public class DifferentialWindow extends JDialog {
         differentialOperator = new TabulatedDifferentialOperator(Window.factory);
         compose();
         addButtonListeners();
-        CreateFunc.checkBoxSave.setVisible(false);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableResult.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         setLocationRelativeTo(null);
@@ -55,7 +54,10 @@ public class DifferentialWindow extends JDialog {
                     "Создать", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
                     null, buttonsName, buttonsName[2]);
             if (resultDialog == 1) {
-                new CreateFunc(function -> firstFunction = function);
+                MathFunctions tabulatedFunction = new MathFunctions(Window.factory);
+                setModalityType(JDialog.DEFAULT_MODALITY_TYPE);
+                setVisible(true);
+                firstFunction = tabulatedFunction.getFunction();
                 tableModel.setFunction(firstFunction);
                 tableModel.fireTableDataChanged();
             }

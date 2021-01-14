@@ -39,6 +39,7 @@ public class MathFunctions extends JDialog {
         compose();
         addButtonListeners(factory);
         setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     private void addButtonListeners(TabulatedFunctionFactory factory) {
@@ -51,7 +52,6 @@ public class MathFunctions extends JDialog {
                 int count = Integer.parseInt(countField.getText());
                 function = factory.create(selectedFunction, xFrom, xTo, count);
                 System.out.println(function.toString());
-                setVisible(true);
                 dispose();
             } catch (Exception e) {
                 new Errors(this, e);
@@ -105,6 +105,9 @@ public class MathFunctions extends JDialog {
                 .addComponent(functionComboBox)
                 .addComponent(buttonCreateFunction)
         );
+    }
 
+    public TabulatedFunction getFunction(){
+        return function;
     }
 }
