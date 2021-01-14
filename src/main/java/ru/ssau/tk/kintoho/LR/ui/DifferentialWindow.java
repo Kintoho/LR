@@ -1,10 +1,8 @@
 package ru.ssau.tk.kintoho.LR.ui;
 
-import ru.ssau.tk.kintoho.LR.functions.*;
-import ru.ssau.tk.kintoho.LR.functions.factory.ArrayTabulatedFunctionFactory;
-import ru.ssau.tk.kintoho.LR.functions.factory.TabulatedFunctionFactory;
-import ru.ssau.tk.kintoho.LR.operations.*;
+import ru.ssau.tk.kintoho.LR.functions.TabulatedFunction;
 import ru.ssau.tk.kintoho.LR.io.FunctionsIO;
+import ru.ssau.tk.kintoho.LR.operations.TabulatedDifferentialOperator;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -19,11 +17,11 @@ public class DifferentialWindow extends JDialog {
     private final List<String> yValuesResult = new ArrayList<>(0);
     private TabulatedFunction functionResult;
     private TabulatedFunction firstFunction;
-    private final AbstractTableModel tableModelResult = new TableModelDiff(xValuesResult, yValuesResult, false, functionResult);
+    private final AbstractTableModel tableModelResult = new TableModelDiff(xValuesResult, yValuesResult, false);
     private final JTable tableResult = new JTable(tableModelResult);
     private final List<String> xValues = new ArrayList<>();
     private final List<String> yValues = new ArrayList<>();
-    private final AbstractTableModel tableModel = new TableModelDiff(xValues, yValues, true, firstFunction);
+    private final AbstractTableModel tableModel = new TableModelDiff(xValues, yValues, true);
     private final JTable table = new JTable(tableModel);
     private final JButton button = new JButton("Вычислить");
     private final JButton buttonResult = new JButton("Сохранить результат");
@@ -34,10 +32,7 @@ public class DifferentialWindow extends JDialog {
     private final JFileChooser downloadChooser = new JFileChooser();
     private final TabulatedDifferentialOperator differentialOperator;
 
-    private final TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
-
     protected DifferentialWindow() {
-        super();
         getContentPane().setLayout(new FlowLayout());
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setModal(true);
@@ -73,7 +68,7 @@ public class DifferentialWindow extends JDialog {
             if (resultDialog == 0){
                 xValues.clear();
                 yValues.clear();
-                TabulatedFunctionWindow table = new TabulatedFunctionWindow(factory);
+                TabulatedFunctionWindow table = new TabulatedFunctionWindow(Window.factory);
                 table.setModalityType(JDialog.DEFAULT_MODALITY_TYPE);
                 table.setVisible(true);
                 for (int i = 0; i < table.getCount(); i++) {

@@ -9,18 +9,19 @@ import java.util.List;
 public class TableModelDiff extends AbstractTableModel {
     private static final int X_COLUMN_NUMBER = 0;
     private static final int Y_COLUMN_NUMBER = 1;
+
     @Serial
     private static final long serialVersionUID = -5870863572550121418L;
+
     private final List<String> xValues;
     private final List<String> yValues;
     private final boolean editable;
     private TabulatedFunction function;
 
-    protected TableModelDiff(List<String> xValues, List<String> yValues, boolean editable, TabulatedFunction function) {
+    protected TableModelDiff(List<String> xValues, List<String> yValues, boolean editable) {
         this.xValues = xValues;
         this.yValues = yValues;
         this.editable = editable;
-        this.function = function;
     }
 
 
