@@ -5,26 +5,24 @@ import ru.ssau.tk.kintoho.LR.io.FunctionsIO;
 import ru.ssau.tk.kintoho.LR.operations.TabulatedDifferentialOperator;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DifferentialWindow extends JDialog {
 
-    private final List<String> xValuesResult = new ArrayList<>(0);
-    private final List<String> yValuesResult = new ArrayList<>(0);
     private TabulatedFunction functionResult;
     private TabulatedFunction firstFunction;
-    private final AbstractTableModel tableModelResult = new TableModelTabulated(functionResult);
+    private final TableModelTabulated tableModelResult = new TableModelTabulated(functionResult){
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return false;
+        }
+    };
     private final JTable tableResult = new JTable(tableModelResult);
-    private final List<String> xValues = new ArrayList<>();
-    private final List<String> yValues = new ArrayList<>();
-    private final AbstractTableModel tableModel = new TableModelTabulated(firstFunction);
+    private final TableModelTabulated tableModel = new TableModelTabulated(firstFunction);
     private final JTable table = new JTable(tableModel);
-    private final JButton button = new JButton("Вычислить");
-    private final JButton buttonResult = new JButton("Сохранить результат");
+    private final JButton buttonResult = new JButton("Вычислить");
+    private final JButton buttonSaveResult = new JButton("Сохранить результат");
     private final JButton buttonCreate = new JButton("Создать");
     private final JButton buttonSave = new JButton("Сохранить");
     private final JButton buttonDownload = new JButton("Загрузить");
@@ -53,45 +51,28 @@ public class DifferentialWindow extends JDialog {
             int resultDialog = JOptionPane.showOptionDialog(new JFrame(), "Выберите способ создания",
                     "Создать", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
                     null, buttonsName, buttonsName[2]);
-            xValues.clear();
-            yValues.clear();
-            xValuesResult.clear();
-            yValuesResult.clear();
             if (resultDialog == 1) {
                 new CreateFunc(function -> firstFunction = function);
-                for (int i = 0; i < firstFunction.getCount(); i++) {
-                    xValues.add(i, String.valueOf(firstFunction.getX(i)));
-                    yValues.add(i, String.valueOf(firstFunction.getY(i)));
-                    tableModel.fireTableDataChanged();
-                }
+                tableModel.setFunction(firstFunction);
+                tableModel.fireTableDataChanged();
             }
             if (resultDialog == 0){
-                xValues.clear();
-                yValues.clear();
                 TabulatedFunctionWindow table = new TabulatedFunctionWindow(Window.factory);
                 table.setModalityType(JDialog.DEFAULT_MODALITY_TYPE);
                 table.setVisible(true);
-                for (int i = 0; i < table.getCount(); i++) {
-                    xValues.add(table.getXValues().get(i));
-                    yValues.add(table.getYValues().get(i));
-                    tableModel.fireTableDataChanged();
-                }
                 firstFunction = table.getFunction();
+                tableModel.setFunction(firstFunction);
+                tableModel.fireTableDataChanged();
             }
         });
-        button.addActionListener(e -> {
+
+        buttonResult.addActionListener(e -> {
             table.clearSelection();
-            xValuesResult.clear();
-            yValuesResult.clear();
-            double[] arrayX = convert(xValues);
-            double[] arrayY = convert(yValues);
-            functionResult = differentialOperator.derive(Window.factory.create(arrayX, arrayY));
-            for (int i = 0; i < functionResult.getCount(); i++) {
-                xValuesResult.add(i, String.valueOf(functionResult.getX(i)));
-                yValuesResult.add(i, String.valueOf(functionResult.getY(i)));
-                tableModelResult.fireTableDataChanged();
-            }
+            functionResult = differentialOperator.derive(firstFunction);
+            tableModelResult.setFunction(functionResult);
+            tableModelResult.fireTableDataChanged();
         });
+
         buttonSave.addActionListener(e -> {
             int returnVal = save.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -120,10 +101,10 @@ public class DifferentialWindow extends JDialog {
                         new Errors(this, exception);
                     }
                 }
-
             }
         });
-        buttonResult.addActionListener(e -> {
+
+        buttonSaveResult.addActionListener(e -> {
             int returnVal = save.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 String fileName = save.getSelectedFile() + ".bin";
@@ -142,8 +123,7 @@ public class DifferentialWindow extends JDialog {
                         if (functionResult != null) {
                             FunctionsIO.serialize(out, functionResult);
                             JOptionPane.showMessageDialog(this,
-                                    "Файл '" + file.getName() +
-                                            " сохранен");
+                                    "Файл '" + file.getName() + " сохранен");
                         } else {
                             throw new IOException();
                         }
@@ -153,26 +133,20 @@ public class DifferentialWindow extends JDialog {
                 }
             }
         });
+
         buttonDownload.addActionListener(e ->
         {
             int returnVal = downloadChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = downloadChooser.getSelectedFile();
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
-                    xValues.clear();
-                    yValues.clear();
-                    tableModel.fireTableDataChanged();
-                    firstFunction = FunctionsIO.deserialize(in);
-                    int count = firstFunction.getCount();
-                    for (int i = 0; i < count; i++) {
-                        xValues.add(i, String.valueOf(firstFunction.getX(i)));
-                        yValues.add(i, String.valueOf(firstFunction.getY(i)));
-                        tableModel.fireTableDataChanged();
-                    }
-                    buttonCreate.setEnabled(false);
 
-                    button.setEnabled(true);
-                    buttonSave.setEnabled(true);
+                    firstFunction = FunctionsIO.deserialize(in);
+                    for (int i = 0; i < firstFunction.getCount(); i++) {
+                        tableModel.setFunction(firstFunction);
+                        tableModel.fireTableDataChanged();
+                        buttonResult.setEnabled(true);
+                    }
                 } catch (IOException | ClassNotFoundException exception) {
                     new Errors(this, exception);
                 }
@@ -191,14 +165,14 @@ public class DifferentialWindow extends JDialog {
         layoutResult.setHorizontalGroup(
                 layoutResult.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addGroup(layoutResult.createSequentialGroup()
-                                .addComponent(buttonResult)
-                                .addComponent(button))
+                                .addComponent(buttonSaveResult)
+                                .addComponent(buttonResult))
                         .addComponent(scrollPaneResult));
 
         layoutResult.setVerticalGroup(layoutResult.createSequentialGroup()
                 .addGroup(layoutResult.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(buttonResult)
-                        .addComponent(button))
+                        .addComponent(buttonSaveResult)
+                        .addComponent(buttonResult))
                 .addComponent(scrollPaneResult));
 
 
@@ -223,7 +197,6 @@ public class DifferentialWindow extends JDialog {
                         .addComponent(buttonSave))
                 .addComponent(scrollPaneInitial));
 
-
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setAutoCreateGaps(true);
@@ -234,14 +207,5 @@ public class DifferentialWindow extends JDialog {
         layout.setVerticalGroup(layout.createSequentialGroup().addGroup(layout.createParallelGroup()
                 .addComponent(panelInitial)
                 .addComponent(panelResult)));
-    }
-
-    private double[] convert(List<String> values) {
-        double[] array = new double[values.size()];
-        for (int i = 0; i < values.size(); i++) {
-            String num = values.get(i);
-            array[i] = Double.parseDouble(num);
-        }
-        return array;
     }
 }
