@@ -1,7 +1,6 @@
 package ru.ssau.tk.kintoho.LR.ui;
 
 import ru.ssau.tk.kintoho.LR.functions.TabulatedFunction;
-import ru.ssau.tk.kintoho.LR.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.kintoho.LR.functions.factory.TabulatedFunctionFactory;
 import ru.ssau.tk.kintoho.LR.io.FunctionsIO;
 
@@ -11,15 +10,16 @@ import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Calculator extends JDialog {
 
-    private final ArrayList<String> xValues1 = new ArrayList<>();
-    private final ArrayList<String> yValues1 = new ArrayList<>();
-    private final ArrayList<String> xValues2 = new ArrayList<>();
-    private final ArrayList<String> yValues2 = new ArrayList<>();
-    private final ArrayList<String> xValuesResult = new ArrayList<>();
-    private final ArrayList<String> yValuesResult = new ArrayList<>();
+    private final List<String> xValues1 = new ArrayList<>();
+    private final List<String> yValues1 = new ArrayList<>();
+    private final List<String> xValues2 = new ArrayList<>();
+    private final List<String> yValues2 = new ArrayList<>();
+    private final List<String> xValuesResult = new ArrayList<>();
+    private final List<String> yValuesResult = new ArrayList<>();
     private final AbstractTableModel tableModel_1 = new TableModel(xValues1, yValues1) {
         @Serial
         private static final long serialVersionUID = 6951015012091406096L;
@@ -55,30 +55,11 @@ public class Calculator extends JDialog {
     };
     private final JTable resultTable = new JTable(result);
     private TabulatedFunction functionResult;
-    private TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
-
     private int exc = 1;
 
-    private JMenu settings() {
-        JMenu set = new JMenu("Выбор фабрики");
-        JMenuItem item = new JMenuItem("Открыть");
-        set.add(item);
-        item.addActionListener(e -> {
-            SettingMenu settings = new SettingMenu();
-            settings.setVisible(true);
-            factory = settings.getFactory();
-        });
-        return set;
-    }
-
-    public Calculator() {
+    public Calculator(TabulatedFunctionFactory factory ) {
         JFrame calculator = new JFrame();
         setModal(true);
-        JMenu menuSettings = new JMenu("Выбор фабрики");
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.add(menuSettings);
-        menuSettings.add(settings());
-        setJMenuBar(menuBar);
         JFileChooser fileOpen = new JFileChooser();
         fileOpen.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileOpen.setDialogTitle("Загрузка функции");

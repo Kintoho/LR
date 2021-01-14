@@ -39,7 +39,7 @@ public class Window extends JFrame {
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         calculate.addActionListener(e -> {
-            Calculator calculator = new Calculator();
+            Calculator calculator = new Calculator(factory);
             calculator.setModalityType(JDialog.DEFAULT_MODALITY_TYPE);
             calculator.setVisible(true);
         });
